@@ -1,13 +1,13 @@
 const Employee = require('../models/Employee');
 const User = require('../models/User');
 const Role = require('../models/Role');
-const bcrypt = require('bcryptjs');
 const ActivityLog = require('../models/ActivityLog');
 const NotificationService = require('../services/NotificationService');
+const bcrypt = require('bcryptjs');
 
 exports.getAllEmployees = async (req, res, next) => {
   try {
-    const { search, status, department } = req.query;
+    const { search, roleId, status } = req.query;
     let filter = { isDeleted: false };
 
     if (search) {
@@ -18,8 +18,8 @@ exports.getAllEmployees = async (req, res, next) => {
       ];
     }
 
+    if (roleId) filter.roleId = roleId;
     if (status) filter.status = status;
-    if (department) filter.department = department;
 
     const employees = await Employee.find(filter)
       .populate('roleId skills')
@@ -37,6 +37,7 @@ exports.getEmployeeById = async (req, res, next) => {
     if (!employee || employee.isDeleted) {
       return res.status(404).json({ success: false, message: 'Employee not found.' });
     }
+
     res.json({ success: true, data: employee });
   } catch (err) {
     next(err);
@@ -45,32 +46,17 @@ exports.getEmployeeById = async (req, res, next) => {
 
 exports.createEmployee = async (req, res, next) => {
   try {
-    const {
-      fullName,
-      email,
-      mobile,
-      department,
-      designation,
-      roleId,
-      skills,
-      experienceYears,
-      reportingManager,
-      capacity,
-      availability,
-      status,
-      password
-    } = req.body;
+    const { fullName, email, mobile, roleId, skills, maxCapacity, availabilityStatus, status, customPassword } = req.body;
 
     if (!fullName || !email || !mobile || !roleId) {
       return res.status(400).json({ success: false, message: 'Full Name, Email, Mobile, and Role are required.' });
     }
 
-    const existingEmp = await Employee.findOne({ email: email.toLowerCase() });
-    if (existingEmp) {
-      return res.status(400).json({ success: false, message: 'An employee with this email already exists.' });
+    const existingEmail = await Employee.findOne({ email: email.toLowerCase(), isDeleted: false });
+    if (existingEmail) {
+      return res.status(400).json({ success: false, message: 'Email address already registered to another employee.' });
     }
 
-    // Generate Employee Code
     const count = await Employee.countDocuments();
     const employeeCode = `EMP-${1000 + count + 1}`;
 
@@ -79,22 +65,18 @@ exports.createEmployee = async (req, res, next) => {
       fullName,
       email: email.toLowerCase(),
       mobile,
-      department: department || 'Engineering',
-      designation: designation || 'Software Engineer',
       roleId,
       skills: skills || [],
-      experienceYears: experienceYears || 0,
-      reportingManager: reportingManager || 'N/A',
-      capacity: capacity || 10,
-      availability: availability || 'Available',
+      maxCapacity: maxCapacity || 5,
+      availabilityStatus: availabilityStatus || 'AVAILABLE',
       status: status || 'Active',
       createdBy: req.user?._id
     });
 
-    // Automatically create User credentials for login access
-    const defaultPassword = password || 'Kevalon@123';
+    // Create Linked User Account
+    const username = email.split('@')[0] + Math.floor(10 + Math.random() * 90);
+    const defaultPassword = customPassword || `Emp@${Math.floor(1000 + Math.random() * 9000)}`;
     const hashedPassword = await bcrypt.hash(defaultPassword, 10);
-    const username = email.split('@')[0].toLowerCase();
 
     await User.create({
       username,
@@ -120,7 +102,13 @@ exports.createEmployee = async (req, res, next) => {
     });
 
     const populated = await Employee.findById(employee._id).populate('roleId skills');
-    res.status(201).json({ success: true, data: populated, message: `Employee created. Default password: ${defaultPassword}` });
+    res.status(201).json({ 
+      success: true, 
+      data: populated, 
+      newPassword: defaultPassword,
+      username,
+      message: `Employee created. Default password: ${defaultPassword}` 
+    });
   } catch (err) {
     next(err);
   }
@@ -138,7 +126,20 @@ exports.updateEmployee = async (req, res, next) => {
     Object.assign(employee, req.body, { updatedBy: req.user?._id });
     await employee.save();
 
-    // If Role was changed, update linked User account role & access rights immediately
+    let updatedPasswordStr = null;
+
+    // Handle Password Update if admin provided a new password
+    if (req.body.newPassword || req.body.password) {
+      const newPass = req.body.newPassword || req.body.password;
+      const hashedPassword = await bcrypt.hash(newPass, 10);
+      await User.findOneAndUpdate(
+        { employeeId: employee._id },
+        { password: hashedPassword }
+      );
+      updatedPasswordStr = newPass;
+    }
+
+    // If Role was changed, update linked User account role
     if (req.body.roleId && req.body.roleId.toString() !== previousRoleId) {
       await User.findOneAndUpdate(
         { employeeId: employee._id },
@@ -161,7 +162,55 @@ exports.updateEmployee = async (req, res, next) => {
     });
 
     const populated = await Employee.findById(employee._id).populate('roleId skills');
-    res.json({ success: true, data: populated });
+    res.json({ 
+      success: true, 
+      data: populated,
+      newPassword: updatedPasswordStr,
+      message: updatedPasswordStr ? `Employee updated. New password: ${updatedPasswordStr}` : 'Employee updated successfully.'
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
+/**
+ * Dedicated Admin Password Reset for Employee
+ * Replaces old password with new generated password and returns plain text to Admin
+ */
+exports.resetEmployeePassword = async (req, res, next) => {
+  try {
+    const employee = await Employee.findById(req.params.id);
+    if (!employee || employee.isDeleted) {
+      return res.status(404).json({ success: false, message: 'Employee not found.' });
+    }
+
+    const newPassword = req.body.newPassword || `Kevalon@${Math.floor(1000 + Math.random() * 9000)}`;
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    const userAccount = await User.findOneAndUpdate(
+      { employeeId: employee._id },
+      { password: hashedPassword },
+      { new: true }
+    );
+
+    if (!userAccount) {
+      return res.status(404).json({ success: false, message: 'Linked User account not found for this employee.' });
+    }
+
+    await ActivityLog.create({
+      userId: req.user?._id,
+      username: req.user?.username || 'System',
+      module: 'EMPLOYEE',
+      action: 'UPDATE',
+      description: `Reset password for Employee ${employee.fullName} (${employee.employeeCode}).`
+    });
+
+    res.json({
+      success: true,
+      message: `Password reset successfully for ${employee.fullName}.`,
+      newPassword,
+      username: userAccount.username
+    });
   } catch (err) {
     next(err);
   }

@@ -39,6 +39,7 @@ router.get('/employees', checkPermission('employees_read'), employeeController.g
 router.get('/employees/:id', checkPermission('employees_read'), employeeController.getEmployeeById);
 router.post('/employees', checkPermission('employees_write'), employeeController.createEmployee);
 router.put('/employees/:id', checkPermission('employees_write'), employeeController.updateEmployee);
+router.post('/employees/:id/reset-password', checkPermission('employees_write'), employeeController.resetEmployeePassword);
 router.delete('/employees/:id', checkPermission('employees_delete'), employeeController.deleteEmployee);
 
 // ROLES & PERMISSIONS CRUD
