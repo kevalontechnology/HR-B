@@ -71,14 +71,15 @@ router.post('/drives', checkPermission('drives_write'), driveController.createDr
 router.put('/drives/:id', checkPermission('drives_write'), driveController.updateDrive);
 router.delete('/drives/:id', checkPermission('drives_write'), driveController.deleteDrive);
 
-// CANDIDATES CRUD & IMPORT
+// CANDIDATES CRUD & IMPORT & ASSIGNMENT
 router.get('/candidates', checkPermission('candidates_read'), candidateController.getAllCandidates);
+router.post('/candidates/import', checkPermission('candidates_import'), candidateController.importCandidates);
+router.post('/candidates/assign', checkPermission('candidates_write'), candidateController.manualAssignCandidate);
+router.post('/candidates/manual-assign', checkPermission('candidates_write'), candidateController.manualAssignCandidate);
 router.get('/candidates/:id', checkPermission('candidates_read'), candidateController.getCandidateById);
 router.post('/candidates', checkPermission('candidates_write'), candidateController.createCandidate);
 router.put('/candidates/:id', checkPermission('candidates_write'), candidateController.updateCandidate);
 router.delete('/candidates/:id', checkPermission('candidates_delete'), candidateController.deleteCandidate);
-router.post('/candidates/import', checkPermission('candidates_import'), candidateController.importCandidates);
-router.post('/candidates/manual-assign', checkPermission('candidates_write'), candidateController.manualAssignCandidate);
 
 // RECEPTION MODULE
 router.post('/reception/check-in', checkPermission('reception_access'), receptionController.checkInCandidate);
