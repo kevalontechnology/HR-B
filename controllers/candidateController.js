@@ -280,19 +280,35 @@ exports.updateCandidate = async (req, res, next) => {
 
 exports.manualAssignCandidate = async (req, res, next) => {
   try {
-    const { candidateId, roundType, interviewerUserId, targetStage } = req.body;
-    if (!candidateId || !roundType || !interviewerUserId) {
-      return res.status(400).json({ success: false, message: 'Candidate ID, Round Type, and Interviewer User ID are required.' });
-    }
+    const candidateId = req.body.candidateId;
+    const roundType = req.body.roundType || req.body.stageType || req.body.stage || 'Technical';
+    const rawInterviewerId = req.body.interviewerUserId || req.body.interviewerId || req.body.employeeId;
+    const targetStage = req.body.targetStage;
 
-    const User = require('../models/User');
-    const targetUser = await User.findById(interviewerUserId).populate('employeeId');
-    if (!targetUser) return res.status(404).json({ success: false, message: 'Target interviewer user account not found.' });
+    if (!candidateId || !roundType || !rawInterviewerId) {
+      return res.status(400).json({ success: false, message: 'Candidate ID, Round Type, and Interviewer ID are required.' });
+    }
 
     const candidate = await Candidate.findById(candidateId);
     if (!candidate) return res.status(404).json({ success: false, message: 'Candidate not found.' });
 
-    const targetEmpId = targetUser.employeeId?._id || targetUser.employeeId || interviewerUserId;
+    const Employee = require('../models/Employee');
+    const User = require('../models/User');
+
+    let empObj = await Employee.findById(rawInterviewerId);
+    let userObj = null;
+
+    if (empObj) {
+      userObj = await User.findOne({ employeeId: empObj._id });
+    } else {
+      userObj = await User.findById(rawInterviewerId).populate('employeeId');
+      if (userObj) {
+        empObj = userObj.employeeId;
+      }
+    }
+
+    const targetEmpId = empObj?._id || rawInterviewerId;
+    const interviewerName = empObj?.fullName || userObj?.fullName || userObj?.username || 'Interviewer';
 
     if (roundType === 'Technical') {
       if (candidate.assignedTechnicalInterviewer) {
@@ -319,18 +335,20 @@ exports.manualAssignCandidate = async (req, res, next) => {
 
     await candidate.save();
 
-    await NotificationService.sendNotification({
-      eventKey: 'CANDIDATE_ASSIGNED',
-      targetUserId: targetUser._id,
-      params: {
-        candidateName: candidate.fullName,
-        candidateCode: candidate.candidateCode,
-        stageName: roundType,
-        interviewerName: targetUser.fullName || targetUser.username
-      }
-    });
+    if (userObj) {
+      await NotificationService.sendNotification({
+        eventKey: 'CANDIDATE_ASSIGNED',
+        targetUserId: userObj._id,
+        params: {
+          candidateName: candidate.fullName,
+          candidateCode: candidate.candidateCode,
+          stageName: roundType,
+          interviewerName
+        }
+      });
+    }
 
-    res.json({ success: true, message: `Candidate ${candidate.candidateCode} assigned to ${targetUser.fullName || targetUser.username}`, candidate });
+    res.json({ success: true, message: `Candidate ${candidate.candidateCode} reassigned to ${interviewerName}`, candidate });
   } catch (err) {
     next(err);
   }
