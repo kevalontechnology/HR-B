@@ -21,6 +21,7 @@ const auditController = require('../controllers/auditController');
 
 // PUBLIC ROUTES (NO AUTH REQUIRED)
 router.post('/auth/login', authController.login);
+router.post('/auth/candidate-login', authController.candidateLogin);
 router.get('/candidates/public-status', candidateController.getPublicCandidateStatus);
 
 // PROTECTED ROUTES BELOW (JWT AUTH REQUIRED)
