@@ -85,7 +85,17 @@ exports.getPublicCandidateStatus = async (req, res, next) => {
 
     let practicalTasks = [];
     if (candidate.stage.includes('PRACTICAL') || candidate.stage === 'TECHNICAL_COMPLETED') {
-      practicalTasks = await InterviewService.getRandomPracticalTasks(candidate.appliedProfileId?._id, 2);
+      if (candidate.assignedPracticalTasks && candidate.assignedPracticalTasks.length > 0) {
+        const populatedCand = await Candidate.findById(candidate._id).populate({
+          path: 'assignedPracticalTasks',
+          populate: { path: 'profileId' }
+        });
+        practicalTasks = populatedCand.assignedPracticalTasks || [];
+      } else {
+        practicalTasks = await InterviewService.getRandomPracticalTasks(candidate.appliedProfileId?._id, 2);
+        candidate.assignedPracticalTasks = practicalTasks.map(t => t._id);
+        await candidate.save();
+      }
     }
 
     res.json({

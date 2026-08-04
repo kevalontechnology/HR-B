@@ -9,14 +9,30 @@ const NotificationService = require('../services/NotificationService');
  */
 exports.getTechnicalQuestionsForCandidate = async (req, res, next) => {
   try {
-    const candidate = await Candidate.findById(req.params.candidateId).populate('appliedProfileId');
+    const candidate = await Candidate.findById(req.params.candidateId)
+      .populate('appliedProfileId')
+      .populate({
+        path: 'assignedTechnicalQuestions',
+        populate: { path: 'skillId profileId' }
+      });
+
     if (!candidate) return res.status(404).json({ success: false, message: 'Candidate not found.' });
 
-    const questions = await InterviewService.getRandomTechnicalQuestions(candidate.appliedProfileId?._id, 10);
-    
-    // Update stage to IN_PROGRESS
-    candidate.stage = 'TECHNICAL_IN_PROGRESS';
-    await candidate.save();
+    let questions = candidate.assignedTechnicalQuestions || [];
+
+    // If no questions assigned yet, generate & persist them permanently on Candidate document
+    if (!questions || questions.length === 0) {
+      const generated = await InterviewService.getRandomTechnicalQuestions(candidate.appliedProfileId?._id, 10);
+      candidate.assignedTechnicalQuestions = generated.map(q => q._id);
+      candidate.stage = 'TECHNICAL_IN_PROGRESS';
+      await candidate.save();
+      questions = generated;
+    } else {
+      if (candidate.stage === 'TECHNICAL_QUEUE') {
+        candidate.stage = 'TECHNICAL_IN_PROGRESS';
+        await candidate.save();
+      }
+    }
 
     res.json({ success: true, candidate, questions });
   } catch (err) {
@@ -87,13 +103,30 @@ exports.submitTechnicalEvaluation = async (req, res, next) => {
  */
 exports.getPracticalTasksForCandidate = async (req, res, next) => {
   try {
-    const candidate = await Candidate.findById(req.params.candidateId).populate('appliedProfileId');
+    const candidate = await Candidate.findById(req.params.candidateId)
+      .populate('appliedProfileId')
+      .populate({
+        path: 'assignedPracticalTasks',
+        populate: { path: 'profileId' }
+      });
+
     if (!candidate) return res.status(404).json({ success: false, message: 'Candidate not found.' });
 
-    const tasks = await InterviewService.getRandomPracticalTasks(candidate.appliedProfileId?._id, 2);
-    
-    candidate.stage = 'PRACTICAL_IN_PROGRESS';
-    await candidate.save();
+    let tasks = candidate.assignedPracticalTasks || [];
+
+    // If no practical tasks assigned yet, generate & persist them permanently on Candidate document
+    if (!tasks || tasks.length === 0) {
+      const generated = await InterviewService.getRandomPracticalTasks(candidate.appliedProfileId?._id, 2);
+      candidate.assignedPracticalTasks = generated.map(t => t._id);
+      candidate.stage = 'PRACTICAL_IN_PROGRESS';
+      await candidate.save();
+      tasks = generated;
+    } else {
+      if (candidate.stage === 'PRACTICAL_QUEUE' || candidate.stage === 'TECHNICAL_COMPLETED') {
+        candidate.stage = 'PRACTICAL_IN_PROGRESS';
+        await candidate.save();
+      }
+    }
 
     res.json({ success: true, candidate, tasks });
   } catch (err) {
@@ -109,19 +142,13 @@ exports.submitPracticalEvaluation = async (req, res, next) => {
     const candidate = await Candidate.findById(candidateId);
     if (!candidate) return res.status(404).json({ success: false, message: 'Candidate not found.' });
 
-    let totalMarksObtained = 0;
-    let totalMaxMarks = 0;
-
-    (tasks || []).forEach(t => {
-      totalMarksObtained += Number(t.marksObtained || 0);
-      totalMaxMarks += Number(t.maxMarks || 100);
-    });
-
-    const scorePercentage = totalMaxMarks > 0 ? Math.round((totalMarksObtained / totalMaxMarks) * 100) : 0;
+    const totalMaxMarks = (tasks || []).reduce((acc, t) => acc + (t.maxMarks || 50), 0) || 100;
+    const totalObtainedMarks = (tasks || []).reduce((acc, t) => acc + (Number(t.marksObtained) || 0), 0);
+    const scorePercentage = Math.round((totalObtainedMarks / totalMaxMarks) * 100);
 
     candidate.practicalEvaluation = {
       score: scorePercentage,
-      totalTasks: (tasks || []).length,
+      totalTasks: (tasks || []).length || 2,
       verdict: verdict || 'HOLD',
       remarks: remarks || '',
       evaluatedBy: req.user?.employeeId || null,
@@ -133,7 +160,7 @@ exports.submitPracticalEvaluation = async (req, res, next) => {
       candidate.stage = 'PRACTICAL_COMPLETED';
       await candidate.save();
 
-      // Auto assign to HR Interview Panel
+      // Auto assign to HR Evaluation Panel
       await AutoAssignService.assignCandidateToInterviewer(candidate._id, 'HR');
     } else if (verdict === 'HOLD') {
       candidate.stage = 'HOLD';
@@ -176,9 +203,9 @@ exports.submitHrEvaluation = async (req, res, next) => {
     if (!candidate) return res.status(404).json({ success: false, message: 'Candidate not found.' });
 
     candidate.hrEvaluation = {
-      communicationScore: Number(communicationScore || 3),
-      behaviorScore: Number(behaviorScore || 3),
-      confidenceScore: Number(confidenceScore || 3),
+      communicationScore: Number(communicationScore) || 0,
+      behaviorScore: Number(behaviorScore) || 0,
+      confidenceScore: Number(confidenceScore) || 0,
       verdict: verdict || 'HOLD',
       remarks: remarks || '',
       evaluatedBy: req.user?.employeeId || null,
@@ -202,16 +229,16 @@ exports.submitHrEvaluation = async (req, res, next) => {
       userId: req.user?._id,
       module: 'INTERVIEW_HR',
       action: 'EVALUATE',
-      description: `HR Evaluation completed for ${candidate.fullName}. Final Decision: ${verdict}`
+      description: `HR Evaluation completed for ${candidate.fullName}. Verdict: ${verdict}`
     });
 
     await NotificationService.sendNotification({
-      eventKey: 'INTERVIEW_COMPLETED',
+      eventKey: 'CANDIDATE_HIRED',
       targetUserId: null,
-      params: { candidateName: candidate.fullName, stageName: 'HR', verdict }
+      params: { candidateName: candidate.fullName, verdict }
     });
 
-    res.json({ success: true, message: `HR Evaluation recorded successfully. Final Decision: ${verdict}`, candidate });
+    res.json({ success: true, message: `HR Evaluation recorded. Candidate status: ${verdict}`, candidate });
   } catch (err) {
     next(err);
   }

@@ -52,6 +52,10 @@ const CandidateSchema = new mongoose.Schema({
   assignedPracticalInterviewer: { type: mongoose.Schema.Types.ObjectId, ref: 'Employee' },
   assignedHrInterviewer: { type: mongoose.Schema.Types.ObjectId, ref: 'Employee' },
   
+  // Persistent Assigned Questions & Tasks per Candidate (Persists across laptop page refreshes)
+  assignedTechnicalQuestions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'TechnicalQuestion' }],
+  assignedPracticalTasks: [{ type: mongoose.Schema.Types.ObjectId, ref: 'PracticalTask' }],
+
   // Evaluation Scores & Statuses
   technicalEvaluation: {
     score: { type: Number, default: 0 },
