@@ -58,6 +58,42 @@ exports.updateTask = async (req, res, next) => {
   }
 };
 
+exports.bulkUpdateTasks = async (req, res, next) => {
+  try {
+    const { ids, updateData } = req.body;
+    if (!ids || !Array.isArray(ids) || ids.length === 0) {
+      return res.status(400).json({ success: false, message: 'Task IDs required for bulk update.' });
+    }
+
+    await PracticalTask.updateMany(
+      { _id: { $in: ids } },
+      { $set: updateData }
+    );
+
+    res.json({ success: true, message: `Successfully bulk updated ${ids.length} tasks.` });
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.bulkDeleteTasks = async (req, res, next) => {
+  try {
+    const { ids } = req.body;
+    if (!ids || !Array.isArray(ids) || ids.length === 0) {
+      return res.status(400).json({ success: false, message: 'Task IDs required for bulk delete.' });
+    }
+
+    await PracticalTask.updateMany(
+      { _id: { $in: ids } },
+      { $set: { isDeleted: true } }
+    );
+
+    res.json({ success: true, message: `Successfully deleted ${ids.length} tasks.` });
+  } catch (err) {
+    next(err);
+  }
+};
+
 exports.deleteTask = async (req, res, next) => {
   try {
     const task = await PracticalTask.findById(req.params.id);

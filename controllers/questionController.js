@@ -58,6 +58,42 @@ exports.updateQuestion = async (req, res, next) => {
   }
 };
 
+exports.bulkUpdateQuestions = async (req, res, next) => {
+  try {
+    const { ids, updateData } = req.body;
+    if (!ids || !Array.isArray(ids) || ids.length === 0) {
+      return res.status(400).json({ success: false, message: 'Question IDs required for bulk update.' });
+    }
+
+    await TechnicalQuestion.updateMany(
+      { _id: { $in: ids } },
+      { $set: updateData }
+    );
+
+    res.json({ success: true, message: `Successfully bulk updated ${ids.length} questions.` });
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.bulkDeleteQuestions = async (req, res, next) => {
+  try {
+    const { ids } = req.body;
+    if (!ids || !Array.isArray(ids) || ids.length === 0) {
+      return res.status(400).json({ success: false, message: 'Question IDs required for bulk delete.' });
+    }
+
+    await TechnicalQuestion.updateMany(
+      { _id: { $in: ids } },
+      { $set: { isDeleted: true } }
+    );
+
+    res.json({ success: true, message: `Successfully deleted ${ids.length} questions.` });
+  } catch (err) {
+    next(err);
+  }
+};
+
 exports.deleteQuestion = async (req, res, next) => {
   try {
     const question = await TechnicalQuestion.findById(req.params.id);

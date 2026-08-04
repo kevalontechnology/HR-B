@@ -91,16 +91,20 @@ router.post('/panels', checkPermission('panels_write'), panelController.createPa
 router.put('/panels/:id', checkPermission('panels_write'), panelController.updatePanel);
 router.delete('/panels/:id', checkPermission('panels_write'), panelController.deletePanel);
 
-// QUESTION BANK CRUD
+// QUESTION BANK CRUD & BULK ACTIONS
 router.get('/questions', checkPermission('questions_read'), questionController.getAllQuestions);
 router.post('/questions', checkPermission('questions_write'), questionController.createQuestion);
 router.put('/questions/:id', checkPermission('questions_write'), questionController.updateQuestion);
+router.post('/questions/bulk-update', checkPermission('questions_write'), questionController.bulkUpdateQuestions);
+router.post('/questions/bulk-delete', checkPermission('questions_write'), questionController.bulkDeleteQuestions);
 router.delete('/questions/:id', checkPermission('questions_write'), questionController.deleteQuestion);
 
-// TASK BANK CRUD
+// TASK BANK CRUD & BULK ACTIONS
 router.get('/tasks', checkPermission('tasks_read'), taskController.getAllTasks);
 router.post('/tasks', checkPermission('tasks_write'), taskController.createTask);
 router.put('/tasks/:id', checkPermission('tasks_write'), taskController.updateTask);
+router.post('/tasks/bulk-update', checkPermission('tasks_write'), taskController.bulkUpdateTasks);
+router.post('/tasks/bulk-delete', checkPermission('tasks_write'), taskController.bulkDeleteTasks);
 router.delete('/tasks/:id', checkPermission('tasks_write'), taskController.deleteTask);
 
 // INTERVIEW WORKSTATIONS
