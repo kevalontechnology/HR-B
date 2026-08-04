@@ -19,10 +19,11 @@ const notificationController = require('../controllers/notificationController');
 const reportController = require('../controllers/reportController');
 const auditController = require('../controllers/auditController');
 
-// PUBLIC AUTH ROUTES
+// PUBLIC ROUTES (NO AUTH REQUIRED)
 router.post('/auth/login', authController.login);
+router.get('/candidates/public-status', candidateController.getPublicCandidateStatus);
 
-// PROTECTED ROUTES BELOW
+// PROTECTED ROUTES BELOW (JWT AUTH REQUIRED)
 router.use(verifyToken);
 
 router.get('/auth/profile', authController.getProfile);
@@ -71,8 +72,7 @@ router.post('/drives', checkPermission('drives_write'), driveController.createDr
 router.put('/drives/:id', checkPermission('drives_write'), driveController.updateDrive);
 router.delete('/drives/:id', checkPermission('drives_write'), driveController.deleteDrive);
 
-// CANDIDATES CRUD & IMPORT & ASSIGNMENT & PUBLIC TRACKER
-router.get('/candidates/public-status', candidateController.getPublicCandidateStatus);
+// CANDIDATES CRUD & IMPORT & ASSIGNMENT
 router.get('/candidates', checkPermission('candidates_read'), candidateController.getAllCandidates);
 router.post('/candidates/import', checkPermission('candidates_import'), candidateController.importCandidates);
 router.post('/candidates/assign', checkPermission('candidates_write'), candidateController.manualAssignCandidate);
