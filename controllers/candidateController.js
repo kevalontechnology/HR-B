@@ -14,6 +14,8 @@ exports.getAllCandidates = async (req, res, next) => {
         { fullName: { $regex: search, $options: 'i' } },
         { email: { $regex: search, $options: 'i' } },
         { candidateCode: { $regex: search, $options: 'i' } },
+        { enrollmentNo: { $regex: search, $options: 'i' } },
+        { collegeName: { $regex: search, $options: 'i' } },
         { tokenNumber: { $regex: search, $options: 'i' } }
       ];
     }
@@ -50,9 +52,27 @@ exports.getCandidateById = async (req, res, next) => {
 
 exports.createCandidate = async (req, res, next) => {
   try {
-    const { fullName, email, mobile, appliedProfileId, skills, experienceYears, driveId, resumeUrl } = req.body;
-    if (!fullName || !email || !mobile || !appliedProfileId) {
-      return res.status(400).json({ success: false, message: 'Full Name, Email, Mobile, and Applied Profile are required.' });
+    const {
+      fullName,
+      email,
+      mobile,
+      enrollmentNo,
+      collegeName,
+      branch,
+      semester,
+      tenthPercentage,
+      twelfthPercentage,
+      diplomaPercentage,
+      currentCpiSpi,
+      appliedProfileId,
+      skills,
+      experienceYears,
+      driveId,
+      resumeUrl
+    } = req.body;
+
+    if (!fullName || !email || !mobile) {
+      return res.status(400).json({ success: false, message: 'Full Name, Email, and Contact No are required.' });
     }
 
     const count = await Candidate.countDocuments();
@@ -63,7 +83,15 @@ exports.createCandidate = async (req, res, next) => {
       fullName,
       email: email.toLowerCase(),
       mobile,
-      appliedProfileId,
+      enrollmentNo: enrollmentNo || '',
+      collegeName: collegeName || '',
+      branch: branch || '',
+      semester: semester || '',
+      tenthPercentage: tenthPercentage || '',
+      twelfthPercentage: twelfthPercentage || '',
+      diplomaPercentage: diplomaPercentage || '',
+      currentCpiSpi: currentCpiSpi || '',
+      appliedProfileId: appliedProfileId || null,
       skills: skills || [],
       experienceYears: experienceYears || 0,
       driveId: driveId || null,
@@ -116,7 +144,21 @@ exports.deleteCandidate = async (req, res, next) => {
 };
 
 /**
- * Excel Bulk Import Simulation
+ * Excel Bulk Import Parser
+ * Accepts exact Excel headers:
+ * - Email Address
+ * - Full Name
+ * - Enrollment No.
+ * - Contact No.
+ * - Profile Applied for
+ * - College Name
+ * - Branch
+ * - Semester
+ * - Percentage in 10th
+ * - Percentage in 12th
+ * - Percentage in Diploma
+ * - Current CPI/SPI
+ * - Submit Resume
  */
 exports.importCandidates = async (req, res, next) => {
   try {
@@ -125,6 +167,12 @@ exports.importCandidates = async (req, res, next) => {
       return res.status(400).json({ success: false, message: 'Invalid or empty candidate list.' });
     }
 
+    const profiles = await AppliedProfile.find({ isDeleted: false });
+    const profileTitleMap = {};
+    profiles.forEach(p => {
+      profileTitleMap[p.title.toLowerCase()] = p._id;
+    });
+
     const imported = [];
     const count = await Candidate.countDocuments();
 
@@ -132,18 +180,50 @@ exports.importCandidates = async (req, res, next) => {
       const item = candidatesList[i];
       const candidateCode = `CAND-${1000 + count + i + 1}`;
 
+      // Map exact Excel Headers or standard keys
+      const email = item['Email Address'] || item.email || `cand${Date.now()}_${i}@example.com`;
+      const fullName = item['Full Name'] || item.fullName || 'Candidate';
+      const enrollmentNo = item['Enrollment No.'] || item.enrollmentNo || '';
+      const mobile = String(item['Contact No.'] || item.mobile || item.contactNo || '9876543210');
+      const profileAppliedName = item['Profile Applied for'] || item.appliedProfileName || item.profile || '';
+      const collegeName = item['College Name'] || item.collegeName || '';
+      const branch = item['Branch'] || item.branch || '';
+      const semester = String(item['Semester'] || item.semester || '');
+      const tenthPercentage = String(item['Percentage in 10th'] || item.tenthPercentage || '');
+      const twelfthPercentage = String(item['Percentage in 12th'] || item.twelfthPercentage || '');
+      const diplomaPercentage = String(item['Percentage in Diploma'] || item.diplomaPercentage || '');
+      const currentCpiSpi = String(item['Current CPI/SPI'] || item.currentCpiSpi || '');
+      const resumeUrl = item['Submit Resume'] || item.resumeUrl || '';
+
+      // Match profile ID if available
+      let matchedProfileId = item.appliedProfileId || null;
+      if (!matchedProfileId && profileAppliedName) {
+        matchedProfileId = profileTitleMap[profileAppliedName.toLowerCase()] || null;
+      }
+      if (!matchedProfileId && profiles.length > 0) {
+        matchedProfileId = profiles[0]._id; // Default fallback profile
+      }
+
       const newCand = await Candidate.create({
         candidateCode,
-        fullName: item.fullName,
-        email: (item.email || `cand${Date.now()}@example.com`).toLowerCase(),
-        mobile: item.mobile || '9876543210',
-        appliedProfileId: item.appliedProfileId,
-        skills: item.skills || [],
-        experienceYears: item.experienceYears || 0,
-        driveId: item.driveId || null,
+        fullName,
+        email: email.toLowerCase().trim(),
+        mobile,
+        enrollmentNo,
+        collegeName,
+        branch,
+        semester,
+        tenthPercentage,
+        twelfthPercentage,
+        diplomaPercentage,
+        currentCpiSpi,
+        appliedProfileId: matchedProfileId,
+        appliedProfileName: profileAppliedName,
+        resumeUrl,
         stage: 'REGISTERED',
         createdBy: req.user?._id
       });
+
       imported.push(newCand);
     }
 
@@ -151,7 +231,7 @@ exports.importCandidates = async (req, res, next) => {
       userId: req.user?._id,
       module: 'CANDIDATE',
       action: 'IMPORT',
-      description: `Bulk imported ${imported.length} candidates via Excel parser.`
+      description: `Bulk imported ${imported.length} campus candidates with academic performance records.`
     });
 
     await NotificationService.sendNotification({

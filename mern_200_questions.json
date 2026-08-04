@@ -1,0 +1,2002 @@
+[
+  {
+    "questionText": "What is the purpose of semantic HTML tags like <header>, <article>, and <section>?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "Semantic HTML tags clearly describe the meaning of web content to both browsers and developers.\nThey improve accessibility for screen readers and assist search engine crawlers in indexing page content accurately.\nReplacing generic <div> tags with semantic elements enhances DOM structure and SEO ranking.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How do localStorage and sessionStorage differ in browser web storage?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "localStorage persists data indefinitely until explicitly cleared by JavaScript code or user action.\nsessionStorage stores data for the duration of the browser tab session and expires when the tab is closed.\nBoth store up to 5MB of key-value string pairs per domain without sending data over network headers.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is the role of the <!DOCTYPE html> declaration at the top of an HTML document?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "The <!DOCTYPE html> declaration informs the browser about the HTML version being used (HTML5).\nIt ensures the browser renders the page in standard compliance mode rather than quirks mode.\nWithout it, browsers may render CSS and layout elements inconsistently across different rendering engines.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What are custom data attributes (data-*) in HTML5 and how are they accessed in JavaScript?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "Data attributes (data-*) allow storing custom data on HTML elements without using non-standard attributes.\nIn JavaScript, they are accessed via the element's dataset property (e.g., element.dataset.userId).\nThey provide a clean bridge between HTML markup and DOM script logic without impacting CSS rendering.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How does the HTML5 <picture> element provide responsive image capabilities?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "The <picture> element wraps multiple <source> tags with media query attributes and an <img> fallback.\nBrowsers evaluate media queries and load only the optimal image file matched to device viewport width.\nThis saves bandwidth on mobile devices by avoiding loading oversized desktop image assets.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "Explain the CSS Box Model components and the effect of box-sizing: border-box.",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "The CSS Box Model consists of content, padding, border, and margin areas.\nBy default, padding and border add to the element's specified width, making layout sizing unpredictable.\nSetting box-sizing: border-box includes padding and border within the defined width and height.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is the difference between CSS Flexbox and CSS Grid layout systems?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "Flexbox is designed for one-dimensional layouts along either a single row or column.\nCSS Grid is a two-dimensional layout engine designed for simultaneous row and column grid alignment.\nFlexbox excels for component-level alignment while Grid is ideal for overall page layout structures.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How do em and rem units calculate sizes in CSS?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "rem (root em) units are calculated relative to the font-size of the root <html> element (usually 16px).\nem units are calculated relative to the font-size of the immediate parent element.\nUsing rem units ensures consistent responsive scaling across the entire UI component tree.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is the difference between display: none and visibility: hidden in CSS?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "display: none hides the element and removes it completely from the DOM layout flow, taking 0 space.\nvisibility: hidden hides the element visually but preserves its original width, height, and layout space.\nElements with display: none do not trigger layout reflow for child components when toggled.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How does z-index control element layering in CSS?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "z-index specifies the stack order of positioned elements along the Z-axis.\nIt only works on elements with a position property other than static (e.g., relative, absolute, fixed).\nHigher z-index values stack above lower values within the same stacking context.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What are CSS media queries and how are they structured?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "Media queries apply CSS styles conditionally based on device properties like screen width or orientation.\nThey use the @media rule followed by conditions (e.g., @media (min-width: 768px) { ... }).\nThey form the foundation of responsive web design by adapting layouts across mobile, tablet, and desktop screens.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is the difference between var, let, and const in JavaScript?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "var is function-scoped and hoisted with an initial value of undefined.\nlet and const are block-scoped and hoisted into the Temporal Dead Zone (TDZ) without initialization.\nconst prevents variable re-assignment, whereas let permits value mutation within its scope block.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "Explain the difference between double equality (==) and triple equality (===) in JS.",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "Double equality (==) compares values after performing implicit type coercion if types differ.\nTriple equality (===) evaluates strict equality without type coercion; both value and type must match.\nUsing === avoids unexpected bugs caused by JavaScript type conversion rules.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is the difference between null and undefined in JavaScript?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "undefined signifies that a variable has been declared but has not yet been assigned a value.\nnull is an explicit assignment representing the intentional absence of any object or value.\ntypeof undefined returns 'undefined', whereas typeof null returns 'object' due to historical legacy.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How does template literal syntax (`${val}`) improve string concatenation in ES6?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "Template literals use backticks (`) to allow multi-line strings without concatenation operators (+).\nThey support embedded expressions using ${expression} placeholders for direct string interpolation.\nThis improves code readability when building dynamic HTML templates or URL strings in JavaScript.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is Event Delegation in JavaScript DOM manipulation?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "Event delegation attaches a single event listener to a parent container instead of multiple child nodes.\nIt leverages event bubbling to intercept events emitted by child elements using event.target.\nThis optimizes memory usage and automatically handles events for dynamically created DOM elements.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is the difference between Array.prototype.map() and Array.prototype.forEach()?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "Array.map() transforms each item in an array and returns a new transformed array of equal length.\nArray.forEach() executes a provided function for each array element but always returns undefined.\nmap() is preferred when transforming data for React component rendering pipelines.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is an Arrow Function in ES6 and how does its syntax differ from standard functions?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "Arrow functions provide a concise syntax using () => {} instead of the function keyword.\nThey do not bind their own 'this' context; instead, they lexically inherit 'this' from the enclosing scope.\nThey also lack the 'arguments' object and cannot be used as constructor functions with 'new'.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How does Object and Array destructuring work in ES6?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "Destructuring extracts values from arrays or properties from objects into distinct variables directly.\nSyntax example: const { name, age } = user or const [first, second] = items.\nIt simplifies extracting deeply nested values and passing component props clean and concisely.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What does the Spread Operator (...) do when applied to arrays and objects?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "The spread operator (...) expands elements of an iterable (array or object) into individual elements.\nIt is commonly used to create shallow copies of arrays/objects or merge data immutably.\nExample: const updated = { ...existingObj, newField: 'value' } creates a new object instance.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is the purpose of the Rest Parameter (...) in function signatures?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "The rest parameter syntax (...) allows a function to accept an indefinite number of arguments as an array.\nIt must be the last parameter in a function definition (e.g., function sum(...numbers)).\nIt replaces the legacy 'arguments' object with a true JavaScript array instance.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is the React Virtual DOM and why is it faster than direct DOM manipulation?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "The Virtual DOM is a lightweight in-memory JSON representation of the real browser DOM tree.\nWhen component state changes, React creates a new Virtual DOM tree and diffs it against the old tree.\nIt batches necessary updates and applies only the minimum required changes to the real DOM.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is a JSX element and how does Babel transform it?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "JSX is a syntax extension for JavaScript allowing HTML-like markup inside React files.\nBabel transpiles JSX tags into React.createElement(component, props, ...children) function calls.\nIt enables writing visual UI structure alongside component logic cleanly.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is the difference between Functional Components and Class Components in React?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "Functional components are plain JS functions returning JSX and managing state via React Hooks.\nClass components extend React.Component, use ES6 classes, 'this.state', and lifecycle methods.\nModern React development uses functional components exclusively due to simplicity and Hooks support.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How does the useState hook manage local component state in React?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "useState returns an array with two elements: the current state value and a state updater function.\nCalling the state updater function schedules a re-render of the component with the new state.\nExample: const [count, setCount] = useState(0) initializes count to 0.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is the purpose of the useEffect hook in React functional components?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "useEffect handles side effects such as data fetching, subscriptions, or DOM mutations after rendering.\nIt accepts an effect callback function and an optional dependency array controlling execution.\nReturning a function from useEffect executes cleanup logic when the component unmounts.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "Why are unique 'key' props required when rendering lists of elements in React?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "Keys help React identify which items in a list have changed, been added, or been removed.\nThey allow the Fiber reconciliation algorithm to reorder DOM nodes efficiently instead of re-rendering all items.\nUsing array indexes as keys should be avoided if list items can reorder or be filtered.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is the difference between Props and State in React?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "Props (short for properties) are immutable data passed down from parent components to child components.\nState is local mutable data managed internally within a component using hooks like useState.\nChanges to either props or state trigger a component re-render to update the UI.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is Prop Drilling in React and how can it be avoided?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "Prop drilling occurs when data is passed through multiple intermediate components that do not need it.\nIt makes components tightly coupled and difficult to refactor or maintain.\nIt is avoided by using React Context API, Redux Toolkit, or component composition techniques.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How does a Controlled Component handle form inputs in React?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "A controlled component binds the input's value attribute to React state (value={state}).\nChanges to the input trigger an onChange handler that updates the state via its setter function.\nThis makes React the single source of truth for form data processing and validation.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is the purpose of React.Fragment (<>...</>) in component markup?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "React.Fragment allows grouping multiple JSX child elements without adding an extra wrapper node to the DOM.\nIt prevents unnecessary <div> pollution in the DOM layout tree, keeping CSS grid/flexbox intact.\nThe short syntax <></> is functionally equivalent to <React.Fragment></React.Fragment>.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How does Tailwind CSS utility-first workflow differ from traditional CSS stylesheets?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "Tailwind CSS uses low-level utility classes directly in markup (e.g., 'flex items-center p-4').\nTraditional CSS requires writing custom class names and separate stylesheet files.\nTailwind eliminates class naming fatigue and generates highly optimized production CSS bundles.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How are responsive breakpoint prefixes applied in Tailwind CSS?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "Tailwind uses mobile-first prefixes like sm:, md:, lg:, and xl: to apply conditional styles.\nStyles without prefixes apply to all screen sizes starting from mobile viewports.\nExample: className='w-full md:w-1/2' sets full width on mobile and half width on screens >= 768px.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is the Material UI (MUI) ThemeProvider component used for?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "ThemeProvider passes a custom MUI theme object down the React component tree via Context.\nIt allows overriding default colors, typography, spacing, and component baseline styles globally.\nCustom themes are created using MUI's createTheme() utility function.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is the role of the sx prop in Material UI components?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "The sx prop provides a shortcut for defining custom inline styles with direct access to MUI theme values.\nIt supports responsive breakpoints, theme color aliases (e.g., 'primary.main'), and pseudo-selectors.\nIt replaces the need for separate CSS modules or styled-components for quick inline styling.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is the purpose of React Router's <Link> component compared to standard <a> tags?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "The <Link to='/path'> component navigates between routes without triggering a full page browser reload.\nStandard <a> tags cause a full HTTP page refresh, resetting client-side React state.\n<Link> updates the browser URL bar and renders matching route components client-side instantly.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is Node.js and how does its non-blocking I/O model operate?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "Node.js is a single-threaded JavaScript runtime environment built on Google Chrome's V8 engine.\nIt uses an event-driven, non-blocking I/O model powered by the Libuv C++ library.\nAsynchronous tasks (file I/O, network calls) run in the background without blocking the main execution thread.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is Express.js and why is it used in MERN stack backend development?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "Express.js is a minimal and flexible unopinionated web application framework for Node.js.\nIt simplifies routing, middleware integration, HTTP request handling, and RESTful API creation.\nIt serves as the web server layer in the MERN stack connecting MongoDB to React.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is the role of the package.json file in a Node.js project?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "package.json contains project metadata, scripts, and lists all installed npm package dependencies.\nIt tracks package version requirements (dependencies vs devDependencies) for repeatable installs.\nExecuting 'npm install' installs all packages listed inside package.json automatically.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How do module.exports (CommonJS) and export default (ES Modules) differ in Node.js?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "CommonJS uses module.exports = item and require('./path') to export and import modules synchronously.\nES Modules use export default item and import item from './path' evaluated asynchronously at compile time.\nModern Node.js supports ES Modules when 'type': 'module' is declared in package.json.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is an Express Middleware function and what are its standard parameters?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "Middleware functions execute during the request-response cycle before reaching the final route handler.\nThey accept three parameters: req (request), res (response), and next (callback to pass control).\nMiddleware can modify req/res objects, run validation, or end the request cycle.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is the difference between req.params, req.query, and req.body in Express?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "req.params contains route parameters extracted from URL paths (e.g., /users/:id -> req.params.id).\nreq.query contains URL query string parameters (e.g., /search?q=term -> req.query.q).\nreq.body contains payload data sent in POST/PUT request bodies (parsed via express.json()).",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is the purpose of express.json() middleware in an Express application?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "express.json() is a built-in middleware that parses incoming requests with JSON payloads.\nIt populates the req.body property with the parsed JavaScript object data.\nWithout it, req.body remains undefined when client apps send JSON POST requests.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is CORS (Cross-Origin Resource Sharing) and how is it enabled in Express?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "CORS is a browser security mechanism that blocks web pages from making API requests to a different domain.\nIn Express, it is enabled by installing the 'cors' package and mounting app.use(cors()).\nThis attaches Access-Control-Allow-Origin response headers instructing browsers to permit access.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is the difference between app.use() and specific HTTP methods like app.get() in Express?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "app.use() registers middleware executed for all HTTP methods (GET, POST, PUT, DELETE) matching a path prefix.\napp.get() registers a route handler that responds exclusively to HTTP GET requests for an exact path.\napp.use() is used for global tasks like authentication, logging, and body parsing.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How does HTTP status code 200 differ from 201, 400, 401, 403, 404, and 500?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "200: OK (success), 201: Created (resource built), 400: Bad Request (client validation failed).\n401: Unauthorized (missing auth token), 403: Forbidden (insufficient permissions), 404: Not Found.\n500: Internal Server Error (unhandled backend exception thrown).",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is environment variable management using dotenv in Node.js?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "dotenv loads environment configuration variables from a hidden .env file into process.env.\nIt keeps sensitive credentials (database URIs, API keys, JWT secrets) out of source code repositories.\nCalling require('dotenv').config() at app startup initializes process.env variables.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is NPM and how does package-lock.json ensure dependency consistency?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "NPM (Node Package Manager) is the official package registry and command-line package installer for Node.js.\npackage-lock.json locks exact dependency version trees and checksums installed in node_modules.\nIt guarantees that every developer and production server builds identical dependency setups.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is NPM scripts section in package.json used for?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "NPM scripts define terminal shortcuts for automation commands (e.g., 'start': 'node server.js').\nThey allow running build steps, test suites, or development servers via 'npm run <script-name>'.\nThis standardizes project execution commands across all developer environments.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is Nodemon and why is it used in Node.js development?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "Nodemon is a development tool that automatically restarts the Node server when file changes are detected.\nIt eliminates the need to manually stop and restart Node scripts in the terminal after code edits.\nIt is used exclusively as a devDependency and is not deployed to production environments.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How does the Node.js path module assist in cross-platform directory resolution?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "The built-in path module provides utilities for handling file and directory paths across operating systems.\npath.join() and path.resolve() concatenate path segments using correct platform separators (/ vs \\).\nIt avoids path resolution errors between Windows, macOS, and Linux servers.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is MongoDB and how does it store data compared to SQL databases?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "MongoDB is a NoSQL document database that stores data in flexible, schema-less BSON documents.\nSQL databases store data in rigid tables with fixed columns, primary keys, and foreign keys.\nMongoDB collections hold JSON-like documents, allowing nested arrays and sub-documents easily.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is BSON and how does it relate to JSON in MongoDB?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "BSON (Binary JSON) is a binary-encoded serialization format used by MongoDB to store data.\nIt extends JSON by supporting additional data types like Date, ObjectId, BinData, and Decimal128.\nIt enables fast parsing and efficient data storage inside MongoDB database engines.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is Mongoose and what benefits does it provide in a MERN stack application?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "Mongoose is an Object Data Modeling (ODM) library for MongoDB and Node.js.\nIt provides schema validation, type casting, middleware hooks, and query building abstractions.\nIt enforces structured schema constraints over MongoDB's natively schema-less collections.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How are Mongoose Schemas and Models defined?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "A Schema defines document structure, default values, and validators (e.g., new mongoose.Schema({...})).\nA Model is a wrapper constructor compiled from the schema (e.g., mongoose.model('User', userSchema)).\nModels provide static database methods like find(), create(), updateOne(), and deleteOne().",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is the MongoDB ObjectId and what information does it contain?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "ObjectId is a 12-byte unique identifier automatically generated for every document's _id field.\nIt consists of a 4-byte timestamp, a 5-byte random value, and a 3-byte incrementing counter.\nIt guarantees global uniqueness across distributed database clusters without central coordination.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "Difference between Mongoose Model.find(), findOne(), and findById() methods?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "Model.find() returns an array of all documents matching the query filter criteria.\nModel.findOne() returns the single first matching document object or null if none match.\nModel.findById(id) searches specifically by the document's _id field value.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How does the save() method work on a Mongoose document instance?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "save() is an instance method called on a newly instantiated document or fetched document model.\nIt triggers pre-save schema validation, runs pre('save') middleware hooks, and inserts/updates MongoDB.\nExample: const user = new User(data); await user.save();",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is a collection in MongoDB and how does it correspond to SQL tables?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "A collection is a grouping of MongoDB documents inside a database, analogous to a table in SQL.\nUnlike SQL tables, collections do not enforce a fixed schema unless validated by ODM tools like Mongoose.\nDocuments within a single collection can have varying fields and structures.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is the purpose of primary key _id in MongoDB documents?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "The _id field acts as the mandatory primary key for every document in a MongoDB collection.\nIf not explicitly provided during document creation, MongoDB automatically assigns a unique ObjectId.\nIt is automatically indexed with a unique constraint to ensure fast retrieval.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How does Mongoose perform basic field validation (required, unique, default, min/max)?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "Validation rules are declared inside schema field options (e.g., { email: { type: String, required: true, unique: true } }).\nMongoose evaluates these rules before saving documents and throws a ValidationError if rules fail.\nDefault values populate fields automatically if left unassigned during document creation.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is Git and how does it differ from GitHub?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "Git is a distributed version control system that tracks local source code changes on a machine.\nGitHub is a cloud-based hosting platform for hosting Git repositories and team collaboration.\nGit operates offline in your terminal, while GitHub provides web UI, Pull Requests, and CI/CD.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What do git status, git add, and git commit commands do in Git workflow?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "git status displays modified, untracked, and staged files in the current working directory.\ngit add <files> stages changes into the index staging area preparing them for commit.\ngit commit -m 'msg' saves staged snapshot changes permanently into the local Git history.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is the purpose of the .gitignore file in a project repository?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": ".gitignore lists file patterns and directories that Git should completely ignore and refrain from tracking.\nCommon ignored files include node_modules/, build outputs (dist/), .env files, and OS log files.\nIt prevents committing sensitive secrets and bulky dependencies into remote repositories.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How does git push -u origin main link a local branch to a remote repository?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "git push sends local branch commits to the specified remote repository ('origin') and branch ('main').\nThe -u (or --set-upstream) flag links the local main branch to the remote main branch.\nSubsequent pushes or pulls on that branch can then be executed by simply typing 'git push' or 'git pull'.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is the difference between git clone and git init?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "git init initializes a brand new, empty local Git repository in the current folder.\ngit clone <url> copies an existing remote repository from platforms like GitHub to your local machine.\nClone automatically configures the 'origin' remote URL and checks out the default branch.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How do git checkout -b <branch-name> and git switch -c <branch-name> work?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "Both commands create a new branch from the current HEAD commit and immediately switch to it.\ngit switch -c is the newer, dedicated command introduced to separate branch switching from file checkout.\nBranching allows developing features independently without affecting the main codebase branch.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is a GitHub Pull Request (PR) and why is it used in team workflows?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "A Pull Request proposes merging code changes from a feature branch into a target branch (e.g., main).\nIt provides a platform for code review, inline comments, automated CI/CD checks, and discussion.\nOnce approved by team members, the PR branch is merged into the main repository branch.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What does git log command display?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "git log lists the chronological commit history of the current branch in reverse order.\nIt displays commit SHA hashes, author names, timestamps, and commit messages.\nFlags like --oneline format the commit history into a concise single-line summary.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is the difference between git fetch and git pull?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "git fetch downloads remote branch updates and commit objects without modifying local working files.\ngit pull downloads remote updates and immediately merges them into the active local branch.\ngit pull is equivalent to executing git fetch followed by git merge.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How does git stash temporarily store uncommitted working directory changes?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "git stash takes modified, tracked files and uncommitted changes and saves them on a stack.\nIt resets the working directory to match the clean HEAD commit, allowing branch switching.\ngit stash pop re-applies the stashed changes back to the working directory and removes them from the stash list.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is a REST API and what are the primary HTTP methods used?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "A REST API (Representational State Transfer) is an architectural style for network communications.\nIt uses standard HTTP methods: GET (read), POST (create), PUT/PATCH (update), and DELETE (remove).\nResources are identified via uniform URL endpoints (e.g., GET /api/v1/candidates).",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is Postman and how is it used in REST API development?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "Postman is an API platform for building, testing, and documenting HTTP RESTful endpoints.\nIt allows developers to send GET/POST requests, configure headers/auth tokens, and inspect JSON responses.\nIt eliminates the need to build a frontend interface to test backend API route functionality.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How are environment variables used in Postman collections?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "Postman environments store dynamic key-value variables like {{base_url}} or {{auth_token}}.\nVariables can be referenced in request URLs, headers, and body scripts across collections.\nThis allows seamless switching between Local (localhost:5000) and Production (api.domain.com) servers.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is the purpose of HTTP headers like Content-Type and Authorization?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "Content-Type specifies the media format of the request payload (e.g., application/json).\nAuthorization transmits authentication credentials (e.g., Bearer <jwt-token>) to verify user access.\nHeaders pass metadata between client and server alongside the request/response payload body.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is the purpose of the alt attribute on HTML <img> tags?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "The alt attribute provides alternative text for an image if it fails to load or for screen reader users.\nIt improves website accessibility for visually impaired users relying on assistive technologies.\nIt also assists search engine crawlers in understanding the context and content of image assets.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is the CSS opacity property and how does it affect child elements?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "The opacity property sets the transparency level of an element ranging from 0.0 (transparent) to 1.0 (opaque).\nApplying opacity to a parent element automatically makes all of its child elements transparent as well.\nUnlike rgba background colors, opacity cannot be overridden by setting child elements to opacity: 1.0.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How does the Array.prototype.includes() method work in JavaScript?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "Array.includes(value) determines whether an array contains a specific value, returning true or false.\nIt performs strict equality comparison (===) over array elements starting from index 0 or a given start index.\nUnlike indexOf(), it correctly handles NaN values (e.g., [NaN].includes(NaN) returns true).",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is the purpose of the title attribute on HTML elements?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "The title attribute contains advisory text displayed as a native browser tooltip when hovering over an element.\nIt provides extra informational context for interactive controls, links, or truncated text.\nWhile helpful for desktop mouse users, it should not replace accessible ARIA labels for touch devices.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What does the HTTP 204 No Content status code signify in REST APIs?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Easy",
+    "expectedAnswer": "HTTP status code 204 indicates that the server successfully processed the request but returns no response body.\nIt is commonly returned for successful DELETE operations or PUT updates where no payload return is needed.\nThe browser maintains the current page view without navigating away or expecting a JSON payload.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "Explain JavaScript Closures and provide a practical use case example.",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "A closure is a function that retains access to variables in its outer lexical scope even after the outer function has returned.\nIt is created every time a function is declared within another function.\nPractical use cases include data privacy (private variables), function currying, and event handler state preservation.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How does the JavaScript Event Loop coordinate the Call Stack, Microtask Queue, and Macrotask Queue?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "The Call Stack executes synchronous JavaScript functions sequentially.\nAsynchronous callbacks are placed into either the Microtask Queue (Promises, process.nextTick) or Macrotask Queue (setTimeout, setInterval).\nThe Event Loop drains the entire Microtask Queue before processing a single item from the Macrotask Queue.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "Explain 'this' keyword dynamic binding and how call(), apply(), and bind() alter it.",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "In standard functions, 'this' refers to the object calling the function at runtime.\ncall(thisArg, arg1, arg2) invokes the function immediately with an explicit 'this' and individual arguments.\napply(thisArg, [args]) invokes immediately accepting arguments as an array, while bind(thisArg) returns a new function with bound 'this'.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is the Temporal Dead Zone (TDZ) for let and const declarations?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "TDZ is the period between entering a scope and the actual line where a let or const variable is declared.\nWhile variables declared with var are hoisted and initialized to undefined, let/const are hoisted uninitialized.\nAccessing a variable in its TDZ throws a ReferenceError.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "Difference between Shallow Copy and Deep Copy in JavaScript object cloning?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "A shallow copy (Object.assign, spread operator) copies top-level properties but retains references to nested objects.\nModifying nested properties in a shallow copy mutates the original object as well.\nA deep copy (structuredClone, JSON.parse(JSON.stringify)) recursively duplicates all nested objects, creating complete independence.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What are JavaScript Promises and their three internal execution states?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "A Promise is an object representing the eventual completion or failure of an asynchronous operation.\nStates: Pending (initial state), Fulfilled (operation completed successfully with a value), Rejected (operation failed with an error).\nPromise callbacks (.then, .catch, .finally) execute asynchronously in the Microtask Queue.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How do Promise.all(), Promise.allSettled(), and Promise.race() differ in behavior?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "Promise.all() resolves when all promises succeed, but rejects immediately if any single promise rejects.\nPromise.allSettled() waits for all promises to settle (fulfill or reject) and returns an array of outcome objects.\nPromise.race() resolves or rejects as soon as the very first promise in the iterable settles.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "Explain async/await syntax and error handling using try/catch/finally blocks.",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "async/await is syntactic sugar built on Promises, allowing asynchronous code to be written synchronously.\nAn async function automatically returns a Promise, and the await operator pauses execution until the Promise settles.\nErrors thrown by awaited promises are caught inside try/catch blocks for clean error handling.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is Debouncing vs Throttling in JavaScript performance optimization?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "Debouncing delays function execution until a specified time (e.g., 300ms) has elapsed since the last call (used in search inputs).\nThrottling limits function execution to at most once every specified interval regardless of call frequency (used in scroll events).\nBoth prevent performance degradation from high-frequency DOM event triggers.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "Explain JavaScript Prototypal Inheritance and the prototype chain.",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "Objects in JavaScript inherit properties and methods directly from other objects via their internal [[Prototype]] link.\nWhen accessing a property, JS checks the object, then its prototype, ascending up the prototype chain until Object.prototype or null.\nThis replaces traditional class-based inheritance model under the hood.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What are Map and Set objects in ES6 and how do they differ from plain Objects and Arrays?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "Map holds key-value pairs where keys can be of any data type (objects, functions, primitives) and preserves insertion order.\nSet is a collection of unique values of any type, automatically eliminating duplicate entries.\nUnlike plain Objects, Maps provide built-in size properties and direct iteration without Object.keys().",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is Prototypal Chain delegation and Object.create() usage?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "Object.create(proto) creates a new object using an existing object as its prototype.\nIt establishes direct prototypal inheritance without invoking a constructor function.\nProperties not found on the child instance delegate lookup up to the assigned prototype object.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What are Higher-Order Functions (HOFs) and how do map, filter, and reduce operate?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "Higher-Order Functions are functions that accept other functions as arguments or return a function.\nmap() transforms elements into a new array, filter() returns a subset matching a predicate condition.\nreduce() executes an accumulator callback over array items to collapse them into a single aggregate output value.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is the purpose of optional chaining (?.) and nullish coalescing (??) operators?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "Optional chaining (?.) reads nested properties safely without throwing an error if a reference is nullish (null or undefined).\nNullish coalescing (??) returns the right-hand operand only if the left-hand operand evaluates to null or undefined.\nUnlike logical OR (||), ?? preserves valid falsy values like 0, false, and empty strings ('').",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How does JavaScript Garbage Collection (Mark-and-Sweep algorithm) manage memory?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "Garbage collection automatically frees memory allocated to objects that are no longer reachable.\nThe Mark-and-Sweep algorithm starts at root references (window, global variables) and marks all reachable objects.\nUnmarked objects are deemed unreachable and their allocated memory space is swept and reclaimed.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How does React Fiber reconciliation diffing algorithm process component tree updates?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "React Fiber splits rendering work into small units of work called fiber nodes processed incrementally.\nIt compares the new Fiber tree with the current tree during the Render phase without blocking the main browser thread.\nDuring the Commit phase, Fiber applies all batched DOM mutations synchronously to update the UI.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is the difference between useMemo and useCallback hooks in React?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "useMemo caches the calculated result value of an expensive function between renders based on dependency arrays.\nuseCallback caches the function definition reference itself to prevent child components from re-rendering.\nuseCallback(fn, deps) is equivalent to useMemo(() => fn, deps).",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How does the useRef hook persist values without triggering component re-renders?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "useRef returns a mutable ref object with a .current property that persists across the entire component lifecycle.\nUpdating ref.current mutates the stored value synchronously without triggering a component re-render.\nIt is used for storing DOM references, timer IDs, or previous state values.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "Explain React Context API setup using createContext, Provider, and useContext.",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "const MyContext = createContext(defaultValue) initializes a context instance.\n<MyContext.Provider value={data}> wraps child components to broadcast state changes down the tree.\nuseContext(MyContext) in consumer functional components subscribes to the nearest Provider's value.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is the difference between Redux Toolkit (RTK) and Context API for global state?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "Context API is built into React and is ideal for low-frequency global state updates (e.g., theme, auth).\nRTK is a dedicated state management library with a centralized store, Redux DevTools, and Immer immutability.\nRTK prevents unnecessary global re-renders by allowing components to select precise state slices.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How does Redux Toolkit simplify Redux boilerplate using createSlice()?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "createSlice() automatically generates action creators, action types, and reducer functions in a single file.\nIt integrates Immer.js internally, allowing developers to write mutable-style state updates safely.\nIt replaces hand-written action constants, switch statements, and manual object spread copying.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is RTK Query and how does it automate server-state caching and fetching?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "RTK Query is an advanced data fetching and caching tool included inside Redux Toolkit.\nIt automatically manages API request status (loading, error, data), caches responses, and deduplicates network requests.\nIt provides tag-based cache invalidation to trigger automated data re-fetching after mutations.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How does React.memo HOC optimize child component rendering?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "React.memo wraps a functional component to memoize its rendered output.\nIt performs a shallow comparison of current props against next props before re-rendering.\nIf props are unchanged, React skips rendering the child component and reuses its previous result.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What are Custom Hooks in React and what rules must they follow?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "Custom Hooks are reusable JavaScript functions that encapsulate stateful logic using built-in React hooks.\nTheir name must start with the prefix 'use' (e.g., useFetch, useAuth) to enforce Hook linting rules.\nThey allow sharing stateful behavior between components without duplicating code or using render props.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "Explain the useReducer hook and when it should be preferred over useState.",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "useReducer accepts a reducer function (state, action) => newState and an initial state.\nIt returns the current state and a dispatch function to trigger action-based state updates.\nIt is preferred when state logic is complex, involves multiple sub-values, or next state depends on previous state.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is Code Splitting in React using React.lazy() and Suspense?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "Code Splitting breaks large bundle files into smaller JavaScript chunks loaded dynamically on demand.\nReact.lazy(() => import('./Component')) dynamically imports component files when rendered.\n<Suspense fallback={<Spinner />}> wraps lazy components to display fallback UI while scripts download.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How does React Router v6 handle dynamic routes and URL parameters using useParams?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "Dynamic routes are defined using colon syntax in route paths (e.g., <Route path='/user/:id' element={<Profile />} />).\nThe useParams() hook extracts URL parameters inside component code as key-value objects.\nExample: const { id } = useParams() retrieves the URL id parameter value dynamically.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How does useNavigate() perform programmatic navigation in React Router v6?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "useNavigate() returns a navigate function used to redirect users programmatically in event handlers.\nExample: const navigate = useNavigate(); navigate('/dashboard', { replace: true }).\nPassing { replace: true } replaces the current entry in the history stack instead of adding a new one.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What are React Error Boundaries and why can they only be created using Class Components?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "Error Boundaries are React components that catch JS errors anywhere in their child component tree.\nThey display fallback UI instead of crashing the entire React component tree.\nThey require lifecycle methods (componentDidCatch or getDerivedStateFromError) which have no Hook equivalents yet.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How does React's Synthetic Event system achieve cross-browser event compatibility?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "React wraps native browser DOM events in a synthetic cross-browser wrapper object (SyntheticEvent).\nIt standardizes event properties and behaviors across different browser implementations.\nEvents are attached to the root document node using event delegation for memory efficiency.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is the difference between Controlled and Uncontrolled Components using React Hook Form?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "Controlled components sync input values to React state on every keystroke, causing frequent re-renders.\nUncontrolled components (used by React Hook Form) store state in the DOM using refs.\nReact Hook Form leverages uncontrolled inputs to eliminate unnecessary component re-renders on form typing.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "Explain the useLayoutEffect hook and how it differs from useEffect.",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "useEffect runs asynchronously after browser layout calculation and paint steps.\nuseLayoutEffect runs synchronously after DOM mutations but before the browser paints the screen.\nuseLayoutEffect is used for measuring DOM dimensions or making DOM modifications to prevent visual flicker.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is React Portals (ReactDOM.createPortal) and what are its common use cases?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "createPortal renders child elements into a different DOM node existing outside the parent hierarchy.\nSyntax: ReactDOM.createPortal(child, containerDOMNode).\nIt is commonly used for modals, tooltips, and dropdown menus to break out of z-index or overflow CSS constraints.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How does Automatic Batching work in React 18?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "React 18 automatically batches multiple state updates into a single re-render for better performance.\nBatching applies across event handlers, Promises, setTimeout calls, and native event listeners.\nPrevious React versions only batched state updates inside native React event handlers.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is strict mode in React (<React.StrictMode>) and what does it do in development?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "StrictMode is a development-only tool that highlights potential problems in a React application.\nIt intentionally double-invokes component renders and effects to catch unexpected side effects.\nIt does not render any visible UI or impact production bundle performance.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "Explain Node.js Event Loop phases: Timers, Pending Callbacks, Poll, Check, and Close.",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "Timers phase executes setTimeout/setInterval callbacks whose thresholds have elapsed.\nPoll phase retrieves new I/O events and executes I/O related callbacks.\nCheck phase executes setImmediate() callbacks immediately after the Poll phase completes.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is Libuv in Node.js and what role does its Thread Pool play?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "Libuv is a multi-platform C library providing asynchronous I/O and the event loop engine for Node.js.\nIt maintains a worker thread pool (default 4 threads) to offload blocking tasks.\nTasks like file I/O, DNS lookups, and crypto hashing run in thread pool workers without stalling the single thread.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How does process.nextTick() differ from setImmediate() in Node.js execution order?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "process.nextTick() fires immediately after the current script operation finishes, before the event loop continues.\nsetImmediate() queues callbacks in the Check phase of the Event Loop.\nprocess.nextTick() has higher priority and can starve the Event Loop if called recursively.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How is Global Error Handling implemented in Express using 4-parameter middleware?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "Express identifies error middleware by requiring exactly 4 parameters: (err, req, res, next).\nAny error passed into next(err) inside route handlers bypasses standard middleware to reach this handler.\nIt formats error responses, sets HTTP status codes, and prevents server process crashes.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "Explain JSON Web Token (JWT) structure (Header, Payload, Signature) and verification.",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "Header contains token type and hashing algorithm; Payload contains user claims and expiration claims.\nSignature is generated by hashing (Header + Payload) with a secret key stored on the server.\nVerifying JWT checks the signature integrity without querying the database on every request.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How to implement Refresh Token and Access Token auth workflow in Express?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "Short-lived Access Tokens (e.g., 15 mins) authenticate API calls via Authorization headers.\nLong-lived Refresh Tokens (e.g., 7 days) are stored in HttpOnly, Secure cookies.\nWhen Access Tokens expire, the client sends the Refresh Token to a refresh endpoint to receive a new Access Token.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What are Node.js Streams and how do Readable, Writable, and Transform streams operate?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "Streams handle reading or writing data sequentially in chunks without loading entire datasets into RAM.\nReadable streams produce data; Writable streams consume data; Transform streams modify data inline.\nfs.createReadStream().pipe(res) pipes large video/file streams efficiently over network responses.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is the Buffer class in Node.js and why is it necessary for binary data?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "Buffer allocates fixed-length memory instances outside V8's heap for raw binary data streams.\nJavaScript historically lacked binary handling capabilities required for network and file operations.\nBuffers represent binary bytes as integers and support encoding conversions (utf-8, hex, base64).",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How does bcrypt hash passwords using salt rounds to prevent rainbow table attacks?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "bcrypt appends a unique random salt string to the password before running cryptographic hashing iterations.\nSalt rounds (cost factor) control the CPU complexity and computational time required to hash passwords.\nThis prevents rainbow table lookups and slows down brute-force dictionary attacks significantly.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is Helmet middleware in Express and how does it secure HTTP response headers?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "Helmet is security middleware that sets various HTTP response headers to protect Express apps.\nIt hides X-Powered-By header, enables X-Frame-Options (clickjacking), and configures Content-Security-Policy.\nIt mitigates XSS, MIME-sniffing, and malicious iframe embedding vulnerabilities.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How does Cluster module in Node.js utilize multi-core server processors?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "The cluster module forks multiple worker processes sharing a single master server network port.\nMaster process distributes incoming HTTP connections across worker processes using round-robin load balancing.\nIt allows Node.js to scale horizontally across multi-core CPUs, multiplying request processing throughput.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How should uncaughtException and unhandledRejection events be handled in Node.js?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "process.on('uncaughtException') catches synchronous errors not handled by try/catch.\nprocess.on('unhandledRejection') catches Promises rejected without a .catch() handler.\nBoth should log error details, close active server connections, and exit the process (process.exit(1)) to allow process managers (PM2) to restart a clean process.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is Rate Limiting and how does express-rate-limit protect backend APIs?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "Rate limiting restricts the maximum number of requests a single IP address can make in a given time window.\nexpress-rate-limit tracks client IP requests in memory or Redis and returns HTTP 429 (Too Many Requests) when exceeded.\nIt protects login endpoints from brute-force attacks and prevents API resource exhaustion.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How does Multer middleware handle multipart/form-data file uploads in Express?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "Multer parses incoming request streams containing multipart/form-data (used for file inputs).\nIt extracts file buffer streams and saves them to designated disk storage or memory buffers.\nIt populates req.file or req.files objects with file metadata (filename, path, size, mimetype).",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is the difference between WebSockets (Socket.io) and HTTP Long Polling?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "WebSockets establish a persistent, full-duplex, bi-directional TCP connection for real-time communication.\nHTTP Long Polling repeatedly opens HTTP connections that server holds open until new data is ready.\nWebSockets incur significantly lower network overhead and latency compared to repetitive polling.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "When should data be Embedded versus Referenced using ObjectIds in MongoDB models?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "Embed sub-documents for 1-to-1 or 1-to-few relationships where data is accessed together (fast reads).\nReference ObjectIds for 1-to-many or many-to-many relationships, or where documents update frequently.\nEmbedding has a 16MB document size limit, while referencing prevents data duplication.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How does MongoDB Indexing (B-Tree) improve read performance and what is an Index Scan?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "Indexes create ordered B-Tree data structures pointing to matching document storage locations.\nThey allow MongoDB to locate documents quickly without performing expensive full collection scans.\nAn index scan (IXSCAN) reads index keys only, dramatically speeding up query execution times.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "Explain MongoDB Aggregation Pipeline stages: $match, $group, $project, $lookup, and $unwind.",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "$match filters documents, $group aggregates data by keys calculating sums/averages.\n$project shapes output fields, $lookup performs left-outer joins against another collection.\n$unwind deconstructs array fields into individual documents per array element.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How does $lookup perform multi-collection joins in MongoDB Aggregation Pipelines?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "$lookup specifies foreign collection (from), localField, foreignField, and output array field (as).\nIt matches documents across collections like a relational SQL LEFT OUTER JOIN.\nIt merges related documents into an array inside the pipeline output stream.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What are Mongoose Pre and Post middleware hooks and how are they used?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "Pre hooks (schema.pre('save')) execute asynchronously before document operations (e.g., hashing passwords).\nPost hooks (schema.post('save')) execute after operations complete (e.g., sending welcome emails).\nThey encapsulate lifecycle side-effects directly within Mongoose data models.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is Mongoose lean() query option and how does it optimize database read operations?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "lean() instructs Mongoose to return plain JavaScript objects instead of heavy Mongoose Document instances.\nIt bypasses Mongoose magic getters, setters, state tracking, and change detection wrappers.\nIt reduces memory usage and speeds up high-volume read query processing by 3x-5x.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How do Compound Indexes in MongoDB evaluate query predicate field order?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "Compound indexes index multiple fields in a specific order (e.g., { status: 1, createdAt: -1 }).\nQueries must match the index prefix order (first status, then createdAt) to utilize the index.\nIncorrect query field ordering prevents MongoDB from utilizing the compound index efficiently.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What are Capped Collections in MongoDB and what are their typical use cases?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "Capped collections are fixed-size collections that maintain insertion order automatically.\nWhen allocated space fills up, new documents automatically overwrite the oldest documents in the collection.\nThey are ideal for storing application log entries, real-time activity feeds, or circular queues.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How does Mongoose handle Schema Versioning (__v field) and how can it be disabled?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "Mongoose adds a __v versionKey field to track document revisions and prevent array overwrite conflicts.\nIt increments __v when updating array fields to detect concurrent modification issues.\nIt can be disabled in schema options: new Schema({...}, { versionKey: false }).",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What are Mongoose Virtuals and how do getters and setters work on Virtual properties?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "Virtuals are computed document properties that are not stored inside MongoDB database documents.\nGetters calculate values dynamically on retrieval (e.g., fullName combining firstName + lastName).\nSetters break down assigned values into sub-properties before saving to actual stored fields.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How to implement Soft Delete pattern using Mongoose schema options and query middleware?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "Add an isDeleted: { type: Boolean, default: false } field to the schema structure.\nUse schema.pre(/^find/) middleware to automatically append { isDeleted: false } to all find queries.\nReplace Model.deleteOne() calls with updates setting isDeleted: true to preserve historical data.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is the 16MB document size limit in MongoDB and how to store larger files?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "MongoDB restricts single BSON document sizes to 16 Megabytes to ensure RAM memory efficiency.\nFiles or data structures exceeding 16MB must be stored using MongoDB GridFS or cloud storage (AWS S3).\nGridFS automatically splits large files into 255KB chunks stored across separate collections.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is MongoDB Atlas search and how does Text Indexing work?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "Text indexes parse and tokenized string content, stemming words and dropping stop words.\nThey support natural language search queries ($text: { $search: 'keyword' }) across string fields.\nAtlas Search adds Lucene-powered full-text search engines for fuzzy matching and autocomplete.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How does Mongoose toJSON transform option strip sensitive credentials from API responses?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "toJSON schema option configures transformation rules evaluated whenever res.json(doc) is called.\nExample: schema.set('toJSON', { transform: (doc, ret) => { delete ret.password; return ret; } }).\nIt guarantees sensitive internal values (passwords, tokens) are omitted from JSON outputs automatically.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is the difference between Write Concern and Read Concern in MongoDB clusters?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "Write Concern specifies the level of acknowledgment requested from MongoDB nodes for write commits.\nRead Concern controls data consistency and isolation guarantees returned by read operations.\nConfigs like writeConcern: { w: 'majority' } ensure data durability across replica set nodes.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is Git Rebase vs Git Merge and when should each be used?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "Git Merge combines branches by creating a new merge commit, preserving historical timeline commits as-is.\nGit Rebase rewrites history by reapplying feature commits sequentially on top of the target branch.\nRebase produces a clean, linear history but should never be used on shared public branches.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How to resolve complex Git Merge Conflicts manually?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "Git flags conflicting files with indicators: <<<<<<< (current), ======= (divider), >>>>>>> (incoming).\nOpen files, edit content to keep desired changes, and remove conflict marker indicators.\nStage resolved files with 'git add <file>' and run 'git commit' to complete the merge resolution.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is Git Interactive Rebase (git rebase -i HEAD~N) and how is it used to squash commits?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "git rebase -i opens an editor listing the last N commits for editing, reordering, or squashing.\nReplacing 'pick' with 'squash' (or 's') combines multiple WIP feature commits into a single commit.\nIt cleans up commit messages and history before creating pull requests.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How to configure production environment variables on Render / Railway hosting platforms?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "Render/Railway provide Environment Settings dashboards to enter key-value configuration pairs.\nSecrets like MONGODB_URI, JWT_SECRET, and PORT are injected directly into process.env at container boot.\nThis keeps production keys out of repository code and allows updating secrets without re-building images.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is CI/CD (Continuous Integration / Continuous Deployment) using GitHub Actions?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "CI/CD automates testing, building, and deployment pipelines upon code pushes or pull requests.\nGitHub Actions uses YAML workflow files (.github/workflows/deploy.yml) containing job steps.\nWorkflows run linters, execute unit tests, build production assets, and trigger server deployments automatically.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How does PM2 Process Manager maintain zero-downtime Node.js production deployments?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "PM2 monitors Node processes in production, automatically restarting crashed instances instantly.\nIt supports Cluster Mode (pm2 start server.js -i max) to scale Node across all CPU cores.\nReload command (pm2 reload all) restarts instances sequentially for zero-downtime application updates.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is NGINX Reverse Proxy and why is it placed in front of Node.js app servers?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "NGINX sits on public ports (80/443), handling SSL/TLS termination, static file serving, and rate limiting.\nIt proxies dynamic requests to Node.js backend processes running internally on localhost ports (5000).\nIt shields Node from direct internet exposure and offloads heavy SSL and static asset rendering.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How to implement API validation using Joi or Zod schemas in Express routes?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "Zod/Joi define validation schemas enforcing object shapes, data types, string formats, and required fields.\nMiddleware parses incoming req.body/req.query through schema.parse(req.body).\nIf validation fails, middleware halts execution and returns structured HTTP 400 validation error responses.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is the difference between Integration Testing and Unit Testing in MERN applications?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "Unit tests (Jest) isolate individual functions or components, mocking external dependencies.\nIntegration tests (Supertest) test combined module workflows, firing HTTP API requests against database endpoints.\nUnit tests verify component logic in isolation, while integration tests verify full system integration correctness.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How to execute database seed scripts safely in production deployment pipelines?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "Seed scripts should be idempotent, checking for existing records before inserting data.\nRun seeds as isolated, one-off deployment migration commands (e.g., npm run seed) prior to app startup.\nNever run destructive database clear operations (deleteMany) in production seed scripts.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is Docker containerization and how do Dockerfile and docker-compose.yml differ?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "Dockerfile defines environment instructions (node image, workdir, dependencies, entry command) for a single container.\ndocker-compose.yml orchestrates multi-container applications (e.g., Node server + MongoDB container + Redis).\nDocker guarantees identical containerized execution across developer machines and cloud servers.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How does HTTPS SSL/TLS Encryption (Let's Encrypt / Certbot) secure network traffic?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "HTTPS encrypts data in transit between browser and server using TLS symmetric and asymmetric keys.\nCertbot automates requesting and renewing free Let's Encrypt SSL certificates on NGINX servers.\nIt prevents man-in-the-middle attacks, packet sniffing, and session token hijacking.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How to set up automated CORS origin whitelisting for production and staging domains?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "Store allowed origin URLs in environment variables (e.g., ALLOWED_ORIGINS=https://app.com,https://staging.app.com).\nConfigure cors middleware origin function to check incoming req.header('Origin') against the array.\nReject unapproved origins with a CORS error while allowing whitelisted frontend web domains.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is the difference between SQL database migrations and NoSQL schema evolution?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "SQL migrations run ALTER TABLE DDL scripts to update rigid column schemas across existing tables.\nNoSQL databases (MongoDB) evolve schemas dynamically; old and new document shapes coexist.\nMongoose schemas manage new fields gracefully using default values or migration script transformers.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How to use Postman Test Scripts to automate API assertions and token extraction?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Medium",
+    "expectedAnswer": "Postman Tests tab accepts JS assertions (e.g., pm.response.to.have.status(200)).\nPre-request and Post-response scripts extract values (e.g., pm.environment.set('token', res.json().token)).\nExtracted tokens automatically populate Authorization headers for subsequent collection requests.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How does V8 Engine execute JavaScript code (JIT Compiler, Ignition Interpreter, TurboFan)?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Hard",
+    "expectedAnswer": "V8 parses JS source code into an Abstract Syntax Tree (AST).\nIgnition interpreter generates and executes bytecode while gathering profiling feedback metrics.\nTurboFan JIT compiler compiles hot bytecode into optimized machine code, deoptimizing back if type assumptions break.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "Explain Memory Leaks in Node.js applications, common causes, and debugging tools.",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Hard",
+    "expectedAnswer": "Memory leaks occur when unneeded objects remain reachable from GC roots, preventing garbage collection.\nCommon causes: global variables, uncleared setInterval timers, event listener leaks, and unclosed database streams.\nDebugging tools: Chrome DevTools heap snapshots (--inspect), Node.js clinic.js, and memwatch.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How to implement Custom Event Emitter pattern in Node.js from scratch?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Hard",
+    "expectedAnswer": "Create a class maintaining an internal events object storing arrays of listener callbacks per event key.\non(event, listener) pushes callbacks; emit(event, ...args) iterates and invokes registered callbacks.\noff(event, listener) filters out specified callback functions to clean up listeners.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "Explain Currying and Partial Application in Functional JavaScript programming.",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Hard",
+    "expectedAnswer": "Currying transforms a function requiring N arguments into a chain of N unary functions (f(a,b,c) -> f(a)(b)(c)).\nPartial application pre-binds a subset of arguments to a function, returning a new function accepting remaining args.\nBoth techniques promote reusable, composable, and modular functional code architectures.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is the JavaScript Proxy and Reflect API and how are they used for data reactivity?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Hard",
+    "expectedAnswer": "Proxy wraps an object to intercept and customize fundamental operations (get, set, deleteProperty).\nReflect provides target object reflection methods called inside Proxy traps to delegate default operations.\nThis forms the reactivity engine behind frameworks like Vue 3 and MobX for tracking state changes.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How does JavaScript Generator function (function*) and yield keyword operate asynchronously?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Hard",
+    "expectedAnswer": "Generator functions can pause execution at yield statements and resume later when .next() is called.\nCalling .next(value) returns { value, done } objects and allows passing data bidirectionally into the generator.\nThey served as the foundation for async flow control libraries (Redux Saga) before async/await.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "Explain the C3 Linearization algorithm for Method Resolution Order (MRO) in prototypal setups.",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Hard",
+    "expectedAnswer": "C3 Linearization guarantees deterministic property resolution order across multiple inheritance setups.\nIt maintains local precedence order and monotonic inheritance hierarchy rules.\nIn JS, it dictates lookup precedence when traversing complex prototype chain hierarchies.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How to optimize CPU-bound heavy calculations in Node.js using Worker Threads (worker_threads)?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Hard",
+    "expectedAnswer": "Worker Threads execute CPU-intensive JS tasks in separate isolated threads sharing memory via ArrayBuffers.\nUnlike child processes, worker_threads share memory space efficiently without IPC serialization overhead.\nIt keeps the main Event Loop responsive to incoming network I/O while background workers compute.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How to implement Server-Side Rendering (SSR) vs Client-Side Rendering (CSR) vs Static Site Generation (SSG)?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Hard",
+    "expectedAnswer": "CSR renders HTML dynamically in browser; initial page load is blank until JS bundle downloads.\nSSR renders HTML on server per request, returning populated markup for immediate display and SEO.\nSSG pre-builds HTML files at compile time, serving static assets via CDN for maximum speed.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is React Hydration and what causes Hydration Mismatch errors in SSR frameworks?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Hard",
+    "expectedAnswer": "Hydration is the process where React attaches event listeners to server-rendered static HTML markup in browser.\nHydration Mismatch errors occur when client-rendered Virtual DOM structure differs from server-rendered HTML.\nCommon causes: using browser-only globals (window, Date.now()) during initial render phase.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How does React 18 Concurrent Rendering and useTransition hook improve UI responsiveness?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Hard",
+    "expectedAnswer": "Concurrent Rendering allows React to interrupt, pause, or yield long rendering tasks to handle user input.\nuseTransition marks state updates as non-urgent transitions (e.g., filtering large lists).\nReact keeps the UI responsive to user clicks/typing while processing transition updates in background.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "Explain Micro-Frontend Architecture and Module Federation in enterprise web applications.",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Hard",
+    "expectedAnswer": "Micro-frontends decompose a monolithic frontend into independent, autonomous web applications.\nWebpack Module Federation allows separate builds to share dependencies and import remote components at runtime.\nTeams develop, test, and deploy UI modules independently without re-building the entire container shell.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How to implement Micro-state Management and Subscriptions to avoid Context re-render cascades?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Hard",
+    "expectedAnswer": "Context API re-renders all subscribing components whenever provider value object reference changes.\nMicro-state libraries (Zustand, Jotai) use selector subscriptions and external store listeners.\nComponents re-render strictly when their selected atomic slice of state mutates.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How does Webpack / Vite Bundle Optimization (Tree Shaking, Chunk Splitting, Dynamic Imports) work?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Hard",
+    "expectedAnswer": "Tree Shaking eliminates dead, unused export code from final production JS bundles via static ES Module analysis.\nChunk Splitting separates vendor libraries (react, lodash) from application code for long-term caching.\nDynamic imports (import()) split code into separate bundle chunks loaded asynchronously on demand.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "Explain Security Vulnerabilities in React: XSS prevention, dangerouslySetInnerHTML, and Sanitization.",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Hard",
+    "expectedAnswer": "React automatically escapes string variables rendered inside JSX, preventing XSS injection.\ndangerouslySetInnerHTML bypasses escaping, creating XSS vulnerabilities if user input is un-sanitized.\nInputs rendered via dangerouslySetInnerHTML must be sanitized first using libraries like DOMPurify.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How to build a custom Scalable Feature-Sliced Design (FSD) architecture in React projects?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Hard",
+    "expectedAnswer": "Feature-Sliced Design structures projects into layers: app, processes, pages, widgets, features, entities, shared.\nEach layer has strict unidirectional import rules; lower layers cannot import from upper layers.\nIt prevents circular dependencies and isolates domain business logic cleanly in enterprise scale applications.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What are React Server Components (RSC) and how do they differ from traditional Client Components?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Hard",
+    "expectedAnswer": "RSC execute exclusively on the server, fetching database resources directly without sending JS to client.\nClient components ('use client') handle browser interactivity, state, and DOM event listeners.\nRSC reduce client JS bundle size and eliminate waterfall API requests between client and server.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How to architect a Production-Grade Offline-First Progressive Web App (PWA) with Service Workers?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Hard",
+    "expectedAnswer": "Service Workers run background scripts intercepting network requests via CacheStorage API strategies.\nStale-While-Revalidate serves cached assets immediately while fetching updates in background.\nIndexedDB stores offline user mutations queued for synchronization when internet connectivity restores.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How to design a High-Availability, Fault-Tolerant System Architecture for a MERN stack application?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Hard",
+    "expectedAnswer": "Deploy multiple Node app stateless instances behind an NGINX / AWS ALB load balancer.\nStore session/cache in a Redis Cluster and database data in MongoDB Replica Sets with auto-failover.\nUse CDN for frontend assets, horizontal auto-scaling groups, and automated health checks.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "Explain ACID Transactions implementation in MongoDB across multi-document replica set operations.",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Hard",
+    "expectedAnswer": "MongoDB supports multi-document ACID transactions using sessions (const session = await db.startSession()).\nOperations run inside transaction boundaries (session.startTransaction()) and commit atomically (session.commitTransaction()).\nIf any operation fails, session.abortTransaction() rolls back all un-committed document writes across nodes.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How to secure Node.js APIs against OWASP Top 10 vulnerabilities (XSS, CSRF, NoSQL Injection, DDoS)?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Hard",
+    "expectedAnswer": "NoSQL Injection: Sanitize inputs with express-mongo-sanitize; XSS: Sanitize inputs and set CSP headers.\nCSRF: Use HttpOnly, SameSite=Strict cookies; DDoS: Implement express-rate-limit and Redis rate-limiting.\nUse Helmet, HTTPS TLS encryption, bcrypt hashing, and strict Joi/Zod schema validation.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How does Redis Caching improve API response throughput and what are cache invalidation strategies?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Hard",
+    "expectedAnswer": "Redis stores hot dataset query results in RAM memory, returning cached JSON payloads in sub-milliseconds.\nCache-Aside strategy: App queries Redis first; on cache miss, queries MongoDB and populates Redis with TTL.\nInvalidation strategies: Write-Through, Time-To-Live (TTL) expiration, and event-driven cache clearing.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "Explain MongoDB Sharding Architecture (Config Servers, Mongos Router, Shard Keys).",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Hard",
+    "expectedAnswer": "Sharding partitions large collections horizontally across multiple independent MongoDB database shards.\nMongos router intercepts client queries and routes them to appropriate shards using the Shard Key.\nConfig Servers maintain cluster metadata and document mapping locations across shard nodes.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How to design an Automated Candidate Auto-Assignment Algorithm based on capacity, skills, and queue depth?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Hard",
+    "expectedAnswer": "Filter active interviewers whose skills match candidate profile requirements and availability is 'Available'.\nFilter out interviewers whose currentQueueCount has reached their maximum daily capacity threshold.\nSort eligible candidates by skill match count descending, then currentQueueCount ascending (least busy first).",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How to implement Distributed Distributed Lock pattern in Node.js using Redis (Redlock algorithm)?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Hard",
+    "expectedAnswer": "Redlock acquires locks across N independent Redis nodes with a set TTL to prevent race conditions.\nA client acquires the lock if it obtains locks from a majority (N/2 + 1) of Redis nodes before timeout.\nIt ensures exclusive execution of critical distributed operations across multiple Node.js instances.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is Database Connection Pooling tuning and how to avoid connection starvation in Node.js?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Hard",
+    "expectedAnswer": "MongoDB driver manages a connection pool (maxPoolSize, minPoolSize) reuse sockets across requests.\nSetting pool size too small causes connection starvation queues under heavy request bursts.\nSetting pool size too high exhausts database server memory resources; tuning matches CPU core concurrency.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How to design a Real-Time Notification Engine in Node.js using Socket.io and Redis Pub/Sub?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Hard",
+    "expectedAnswer": "Socket.io manages persistent WebSocket connections between client browsers and Node servers.\nWhen scaling multiple Node servers, Redis Pub/Sub acts as a message broker broadcasting events across instances.\nEach Node server receives Redis Pub/Sub events and emits Socket.io notifications to target user rooms.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "Explain Graceful Shutdown implementation in Node.js production servers.",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Hard",
+    "expectedAnswer": "Listen to process SIGTERM / SIGINT termination signals emitted by process managers or Docker.\nStop accepting new HTTP connections (server.close()), complete active requests in flight.\nClose MongoDB database connections and Redis clients cleanly before terminating process with exit code 0.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How to implement Audit Logging architecture tracking user actions, IP addresses, and metadata?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Hard",
+    "expectedAnswer": "Create an ActivityLog Mongoose schema capturing userId, module, action, IP, timestamp, and metadata.\nMount audit middleware or invoke log service asynchronously within controllers during CRUD mutations.\nStore audit logs in capped collections or append-only stores to prevent tampering and preserve audit trails.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is Zero-Downtime Database Migration strategy for breaking schema changes?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Hard",
+    "expectedAnswer": "Expand phase: Add new schema fields alongside old fields without breaking existing production queries.\nMigrate phase: Run asynchronous background migration scripts to copy and transform data from old to new fields.\nContract phase: Update application code to read from new fields, and safely deprecate old fields later.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How to analyze and resolve high CPU usage and Event Loop Delay in Node.js applications?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Hard",
+    "expectedAnswer": "Use Node.js profiler (--prof) or Clinic.js Flame to identify CPU-bound synchronous functions.\nMeasure Event Loop Lag using monitorEventLoopDelay() from the perf_hooks module.\nOffload synchronous heavy computations (JSON parsing, crypto, compression) to Worker Threads or background queues.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How to optimize React initial bundle load performance (LCP, FID, CLS Web Vitals)?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Hard",
+    "expectedAnswer": "Optimize Largest Contentful Paint (LCP) via SSG/SSR, image optimization (WebP/AVIF), and CDN asset hosting.\nImprove First Input Delay (FID) by code splitting JS bundles to minimize main thread blocking time.\nFix Cumulative Layout Shift (CLS) by reserving explicit width/height dimensions on images and dynamic containers.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "What is Database Index Cardinality and how does low cardinality impact query performance?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Hard",
+    "expectedAnswer": "Cardinality measures the uniqueness of data values stored in a specific database column or field.\nHigh cardinality fields (UUID, Email) have unique values, making index B-Tree lookups extremely fast.\nLow cardinality fields (Boolean, Gender) have few unique values; indexes on low cardinality fields are ineffective.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How to scale WebSocket connections horizontally across multiple Node.js instances?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Hard",
+    "expectedAnswer": "Use Socket.io Redis Adapter to synchronize events and room subscriptions across independent Node processes.\nConfigure NGINX load balancer with sticky sessions (ip_hash) or WebSocket upgrade headers.\nThis allows clients connected to Server A to receive real-time events published by Server B.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "Explain Data Encryption techniques: Encryption at Rest vs Encryption in Transit.",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Hard",
+    "expectedAnswer": "Encryption in Transit secures network traffic between client and server using TLS/HTTPS protocols.\nEncryption at Rest encrypts stored data on physical storage disks using AES-256 cryptographic keys.\nMongoDB Enterprise provides Transparent Data Encryption (TDE) to protect database files on disk.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How to implement Idempotency in API POST/PUT requests using Idempotency Keys?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Hard",
+    "expectedAnswer": "Clients generate a unique Idempotency-Key header (UUID) and send it with mutation requests.\nServer stores the key and response in Redis; subsequent requests with the same key return cached response.\nIt prevents duplicate resource creation or payment processing if network retries occur.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How to architect a Multi-Tenant SaaS MERN Application (Single DB vs Multi-DB per tenant)?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Hard",
+    "expectedAnswer": "Single DB (Shared): Add tenantId field to schemas and enforce tenantId query filtering via middleware.\nMulti-DB (Isolated): Provision separate MongoDB databases per tenant and dynamically route connections via tenant header.\nShared DB is cost-effective and easier to maintain; Multi-DB provides strict data isolation and compliance.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How does HTTP/2 Multiplexing and Server Push differ from HTTP/1.1 pipeline loading?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Hard",
+    "expectedAnswer": "HTTP/1.1 requires opening multiple TCP connections and suffers from head-of-line blocking issues.\nHTTP/2 multiplexes multiple requests and responses concurrently over a single persistent TCP connection.\nHTTP/2 reduces latency, eliminates domain sharding requirements, and compresses HTTP headers via HPACK.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How to design a Fault-Tolerant Distributed Background Job Queue using BullMQ and Redis?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Hard",
+    "expectedAnswer": "BullMQ queues background jobs in Redis, handling retries with exponential backoff delays on job failure.\nWorker processes consume jobs concurrently, reporting progress and completion status back to Redis.\nIt handles worker process crashes gracefully by re-queueing stalled jobs automatically.",
+    "status": "Active",
+    "isDeleted": false
+  },
+  {
+    "questionText": "How to implement Zero-Trust Security Architecture principles in Enterprise Web Applications?",
+    "profileId": {
+      "$oid": "6a7233d8cde06bf8e7c4b1b9"
+    },
+    "difficulty": "Hard",
+    "expectedAnswer": "Zero-Trust assumes no user or service is trusted by default, enforcing strict verification on every request.\nAuthenticate and authorize every API request using short-lived JWTs and granular role-based permissions (RBAC).\nEncrypt all internal and external network traffic, enforce least-privilege access, and log all activity for auditing.",
+    "status": "Active",
+    "isDeleted": false
+  }
+]

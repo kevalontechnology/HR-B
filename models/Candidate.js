@@ -5,7 +5,19 @@ const CandidateSchema = new mongoose.Schema({
   fullName: { type: String, required: true, trim: true },
   email: { type: String, required: true, lowercase: true, trim: true },
   mobile: { type: String, required: true, trim: true },
-  appliedProfileId: { type: mongoose.Schema.Types.ObjectId, ref: 'AppliedProfile', required: true },
+  
+  // Academic & Campus Details
+  enrollmentNo: { type: String, default: '' },
+  collegeName: { type: String, default: '' },
+  branch: { type: String, default: '' },
+  semester: { type: String, default: '' },
+  tenthPercentage: { type: String, default: '' },
+  twelfthPercentage: { type: String, default: '' },
+  diplomaPercentage: { type: String, default: '' },
+  currentCpiSpi: { type: String, default: '' },
+  
+  appliedProfileId: { type: mongoose.Schema.Types.ObjectId, ref: 'AppliedProfile' },
+  appliedProfileName: { type: String, default: '' }, // Fallback string if importing via profile title
   skills: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Skill' }],
   experienceYears: { type: Number, default: 0 },
   driveId: { type: mongoose.Schema.Types.ObjectId, ref: 'RecruitmentDrive' },
@@ -75,9 +87,9 @@ const CandidateSchema = new mongoose.Schema({
   },
 
   hrEvaluation: {
-    communicationScore: { type: Number, default: 0 }, // 1-5
-    behaviorScore: { type: Number, default: 0 },     // 1-5
-    confidenceScore: { type: Number, default: 0 },   // 1-5
+    communicationScore: { type: Number, default: 0 },
+    behaviorScore: { type: Number, default: 0 },
+    confidenceScore: { type: Number, default: 0 },
     verdict: { type: String, enum: ['PENDING', 'SELECTED', 'HOLD', 'REJECTED'], default: 'PENDING' },
     remarks: { type: String, default: '' },
     evaluatedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'Employee' },
