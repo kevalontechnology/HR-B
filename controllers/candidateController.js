@@ -169,25 +169,33 @@ exports.importCandidates = async (req, res, next) => {
 
     const profiles = await AppliedProfile.find({ isDeleted: false });
 
-    // Robust Applied Profile resolution helper
+    // Robust Applied Profile resolution helper supporting BSON $oid objects, titles, and codes
     const findProfileId = (val) => {
       if (!val) return null;
-      const strVal = String(val).trim().toLowerCase();
+      let strVal = '';
+      if (typeof val === 'object') {
+        strVal = String(val.$oid || val._id || val.title || '').trim();
+      } else {
+        strVal = String(val).trim();
+      }
+
+      if (!strVal) return null;
+      const lowerVal = strVal.toLowerCase();
 
       // 1. Direct MongoDB ObjectId match
-      const byId = profiles.find(p => p._id.toString() === val || p._id.toString() === strVal);
+      const byId = profiles.find(p => p._id.toString() === strVal || p._id.toString() === lowerVal);
       if (byId) return byId._id;
 
       // 2. Exact Title match (case-insensitive)
-      const byTitle = profiles.find(p => p.title.toLowerCase() === strVal);
+      const byTitle = profiles.find(p => p.title.toLowerCase() === lowerVal);
       if (byTitle) return byTitle._id;
 
       // 3. Exact Code match (e.g. PROF_PYTHON)
-      const byCode = profiles.find(p => p.code.toLowerCase() === strVal);
+      const byCode = profiles.find(p => p.code.toLowerCase() === lowerVal);
       if (byCode) return byCode._id;
 
       // 4. Partial / Fuzzy Title match (e.g. "python" in "Python Django Developer")
-      const byPartial = profiles.find(p => p.title.toLowerCase().includes(strVal) || strVal.includes(p.title.toLowerCase()));
+      const byPartial = profiles.find(p => p.title.toLowerCase().includes(lowerVal) || lowerVal.includes(p.title.toLowerCase()));
       if (byPartial) return byPartial._id;
 
       return null;
@@ -200,13 +208,13 @@ exports.importCandidates = async (req, res, next) => {
       const item = candidatesList[i];
       const candidateCode = `CAND-${1000 + count + i + 1}`;
 
-      // Map exact Excel Headers or standard keys
+      // Map exact Excel Headers or BSON JSON keys
       const email = item['Email Address'] || item.email || `cand${Date.now()}_${i}@example.com`;
       const fullName = item['Full Name'] || item.fullName || 'Candidate';
       const enrollmentNo = item['Enrollment No.'] || item.enrollmentNo || '';
-      const mobile = String(item['Contact No.'] || item.mobile || item.contactNo || '9876543210');
+      const mobile = String(item['Contact No.'] || item.contactNo || item.mobile || '9876543210');
       
-      const rawProfileInput = item['appliedProfileId'] || item.appliedProfileId || item['Profile Applied for'] || item.appliedProfileName || item.profile || '';
+      const rawProfileInput = item['appliedProfile'] || item['appliedProfileId'] || item.appliedProfileId || item['Profile Applied for'] || item.appliedProfileName || item.profile || '';
       const matchedProfileId = findProfileId(rawProfileInput);
 
       const collegeName = item['College Name'] || item.collegeName || '';
@@ -216,7 +224,11 @@ exports.importCandidates = async (req, res, next) => {
       const twelfthPercentage = String(item['Percentage in 12th'] || item.twelfthPercentage || '');
       const diplomaPercentage = String(item['Percentage in Diploma'] || item.diplomaPercentage || '');
       const currentCpiSpi = String(item['Current CPI/SPI'] || item.currentCpiSpi || '');
-      const resumeUrl = item['Submit Resume'] || item.resumeUrl || '';
+      const resumeUrl = item['Submit Resume'] || item.resume || item.resumeUrl || '';
+
+      const profileNameStr = typeof rawProfileInput === 'object' 
+        ? (rawProfileInput.$oid || rawProfileInput.title || JSON.stringify(rawProfileInput)) 
+        : String(rawProfileInput);
 
       const newCand = await Candidate.create({
         candidateCode,
@@ -232,7 +244,7 @@ exports.importCandidates = async (req, res, next) => {
         diplomaPercentage,
         currentCpiSpi,
         appliedProfileId: matchedProfileId || (profiles[0]?._id || null),
-        appliedProfileName: String(rawProfileInput),
+        appliedProfileName: profileNameStr,
         resumeUrl,
         stage: 'REGISTERED',
         createdBy: req.user?._id
