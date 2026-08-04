@@ -86,6 +86,16 @@ class AutoAssignService {
     }
 
     if (selectedInterviewer) {
+      const previousInterviewerId = panelType === 'Technical'
+        ? candidate.assignedTechnicalInterviewer
+        : panelType === 'Practical'
+        ? candidate.assignedPracticalInterviewer
+        : candidate.assignedHrInterviewer;
+
+      if (previousInterviewerId && previousInterviewerId.toString() !== selectedInterviewer._id.toString()) {
+        await Employee.findByIdAndUpdate(previousInterviewerId, { $inc: { currentQueueCount: -1 } });
+      }
+
       if (panelType === 'Technical') {
         candidate.assignedTechnicalInterviewer = selectedInterviewer._id;
         candidate.stage = 'TECHNICAL_QUEUE';
@@ -103,24 +113,30 @@ class AutoAssignService {
       selectedInterviewer.currentQueueCount = (selectedInterviewer.currentQueueCount || 0) + 1;
       await selectedInterviewer.save();
 
+      // Find linked user for notification
+      const User = require('../models/User');
+      const linkedUser = await User.findOne({ employeeId: selectedInterviewer._id });
+
       // Log activity
       await ActivityLog.create({
         module: 'AUTO_ASSIGN',
         action: 'ASSIGN_INTERVIEWER',
-        description: `Candidate ${candidate.fullName} (${candidate.candidateCode}) auto-assigned to ${selectedInterviewer.fullName} for ${panelType} interview.`
+        description: `Candidate ${candidate.fullName} (${candidate.candidateCode}) assigned to ${selectedInterviewer.fullName} for ${panelType} interview.`
       });
 
       // Dispatch Notification
-      await NotificationService.sendNotification({
-        eventKey: 'CANDIDATE_ASSIGNED',
-        targetUserId: selectedInterviewer._id,
-        params: {
-          candidateName: candidate.fullName,
-          candidateCode: candidate.candidateCode,
-          stageName: panelType,
-          interviewerName: selectedInterviewer.fullName
-        }
-      });
+      if (linkedUser) {
+        await NotificationService.sendNotification({
+          eventKey: 'CANDIDATE_ASSIGNED',
+          targetUserId: linkedUser._id,
+          params: {
+            candidateName: candidate.fullName,
+            candidateCode: candidate.candidateCode,
+            stageName: panelType,
+            interviewerName: selectedInterviewer.fullName
+          }
+        });
+      }
 
       return {
         success: true,
