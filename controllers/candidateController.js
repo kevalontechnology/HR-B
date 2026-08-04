@@ -125,8 +125,8 @@ exports.createCandidate = async (req, res, next) => {
       resumeUrl
     } = req.body;
 
-    if (!fullName || !email || !mobile) {
-      return res.status(400).json({ success: false, message: 'Full Name, Email, and Contact No are required.' });
+    if (!fullName || (!email && !mobile)) {
+      return res.status(400).json({ success: false, message: 'Full Name and Email or Contact No are required.' });
     }
 
     const count = await Candidate.countDocuments();
@@ -135,8 +135,8 @@ exports.createCandidate = async (req, res, next) => {
     const candidate = await Candidate.create({
       candidateCode,
       fullName,
-      email: email.toLowerCase(),
-      mobile,
+      email: (email || `${fullName.toLowerCase().replace(/\s+/g, '')}@campus.com`).toLowerCase(),
+      mobile: mobile || '0000000000',
       enrollmentNo: enrollmentNo || '',
       collegeName: collegeName || '',
       branch: branch || '',
@@ -155,6 +155,73 @@ exports.createCandidate = async (req, res, next) => {
     });
 
     res.status(201).json({ success: true, data: candidate });
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.importCandidates = async (req, res, next) => {
+  try {
+    const { candidates } = req.body;
+    if (!Array.isArray(candidates) || candidates.length === 0) {
+      return res.status(400).json({ success: false, message: 'No candidates array provided for import.' });
+    }
+
+    const profiles = await AppliedProfile.find({ isDeleted: false });
+
+    const findProfileId = (val) => {
+      if (!val) return null;
+      const oid = typeof val === 'object' && val !== null ? (val.$oid || val._id || val) : val;
+      const strVal = String(oid).trim();
+
+      const byId = profiles.find(p => p._id.toString() === strVal);
+      if (byId) return byId._id;
+
+      const byTitle = profiles.find(p => p.title.toLowerCase() === strVal.toLowerCase());
+      if (byTitle) return byTitle._id;
+
+      const byCode = profiles.find(p => p.code && p.code.toLowerCase() === strVal.toLowerCase());
+      if (byCode) return byCode._id;
+
+      const byPartial = profiles.find(p => p.title.toLowerCase().includes(strVal.toLowerCase()) || strVal.toLowerCase().includes(p.title.toLowerCase()));
+      if (byPartial) return byPartial._id;
+
+      return profiles[0]?._id || null;
+    };
+
+    let importedCount = 0;
+    const count = await Candidate.countDocuments();
+
+    for (let i = 0; i < candidates.length; i++) {
+      const c = candidates[i];
+      if (!c.fullName || (!c.email && !c.mobile && !c.contactNo)) continue;
+
+      const candidateCode = `CAND-${1000 + count + i + 1}`;
+      const profileId = findProfileId(c.appliedProfile || c.appliedProfileId || c.profile);
+
+      await Candidate.create({
+        candidateCode,
+        fullName: c.fullName,
+        email: (c.email || `${c.fullName.toLowerCase().replace(/\s+/g, '')}@campus.com`).toLowerCase(),
+        mobile: c.contactNo || c.mobile || '0000000000',
+        enrollmentNo: c.enrollmentNo || '',
+        collegeName: c.collegeName || '',
+        branch: c.branch || '',
+        semester: Number(c.semester) || 1,
+        tenthPercentage: String(c.tenthPercentage || ''),
+        twelfthPercentage: String(c.twelfthPercentage || ''),
+        diplomaPercentage: String(c.diplomaPercentage || ''),
+        currentCpiSpi: String(c.currentCpiSpi || ''),
+        appliedProfileId: profileId,
+        resumeUrl: c.resume || c.resumeUrl || '',
+        stage: 'REGISTERED',
+        createdBy: req.user?._id
+      });
+
+      importedCount++;
+    }
+
+    res.status(201).json({ success: true, count: importedCount, message: `Successfully imported ${importedCount} candidates.` });
   } catch (err) {
     next(err);
   }
