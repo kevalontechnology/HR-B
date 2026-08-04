@@ -3,6 +3,7 @@ const AppliedProfile = require('../models/AppliedProfile');
 const ActivityLog = require('../models/ActivityLog');
 const NotificationService = require('../services/NotificationService');
 const AutoAssignService = require('../services/AutoAssignService');
+const InterviewService = require('../services/InterviewService');
 
 exports.getAllCandidates = async (req, res, next) => {
   try {
@@ -30,6 +31,59 @@ exports.getAllCandidates = async (req, res, next) => {
       .sort({ createdAt: -1 });
 
     res.json({ success: true, count: candidates.length, data: candidates });
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.getPublicCandidateStatus = async (req, res, next) => {
+  try {
+    const { query } = req.query;
+    if (!query) {
+      return res.status(400).json({ success: false, message: 'Please enter Candidate Code, Mobile, Enrollment No, or Token No.' });
+    }
+
+    const q = query.trim();
+    const candidate = await Candidate.findOne({
+      isDeleted: false,
+      $or: [
+        { candidateCode: { $regex: `^${q}$`, $options: 'i' } },
+        { tokenNumber: { $regex: `^${q}$`, $options: 'i' } },
+        { mobile: { $regex: q, $options: 'i' } },
+        { enrollmentNo: { $regex: `^${q}$`, $options: 'i' } },
+        { email: { $regex: `^${q}$`, $options: 'i' } }
+      ]
+    }).populate('appliedProfileId');
+
+    if (!candidate) {
+      return res.status(404).json({ success: false, message: 'No candidate record found matching the details provided.' });
+    }
+
+    let practicalTasks = [];
+    if (candidate.stage.includes('PRACTICAL') || candidate.stage === 'TECHNICAL_COMPLETED') {
+      practicalTasks = await InterviewService.getRandomPracticalTasks(candidate.appliedProfileId?._id, 2);
+    }
+
+    res.json({
+      success: true,
+      candidate: {
+        candidateCode: candidate.candidateCode,
+        fullName: candidate.fullName,
+        tokenNumber: candidate.tokenNumber || 'N/A',
+        stage: candidate.stage,
+        appliedProfileName: candidate.appliedProfileId?.title || candidate.appliedProfileName || 'N/A',
+        collegeName: candidate.collegeName || 'N/A',
+        branch: candidate.branch || 'N/A',
+        checkInTime: candidate.checkInTime || null,
+        finalResult: candidate.finalResult || 'PENDING'
+      },
+      practicalTasks: practicalTasks.map(t => ({
+        taskTitle: t.taskTitle || t.title,
+        taskDescription: t.taskDescription || t.problemStatement,
+        maxMarks: t.maxMarks || 100,
+        expectedTimeMinutes: t.expectedTimeMinutes || 45
+      }))
+    });
   } catch (err) {
     next(err);
   }
@@ -100,15 +154,7 @@ exports.createCandidate = async (req, res, next) => {
       createdBy: req.user?._id
     });
 
-    await ActivityLog.create({
-      userId: req.user?._id,
-      module: 'CANDIDATE',
-      action: 'CREATE',
-      description: `Registered Candidate ${fullName} (${candidateCode})`
-    });
-
-    const populated = await Candidate.findById(candidate._id).populate('appliedProfileId skills driveId');
-    res.status(201).json({ success: true, data: populated });
+    res.status(201).json({ success: true, data: candidate });
   } catch (err) {
     next(err);
   }
@@ -117,13 +163,72 @@ exports.createCandidate = async (req, res, next) => {
 exports.updateCandidate = async (req, res, next) => {
   try {
     const candidate = await Candidate.findById(req.params.id);
-    if (!candidate || candidate.isDeleted) return res.status(404).json({ success: false, message: 'Candidate not found.' });
+    if (!candidate || candidate.isDeleted) {
+      return res.status(404).json({ success: false, message: 'Candidate not found.' });
+    }
 
-    Object.assign(candidate, req.body, { updatedBy: req.user?._id });
+    Object.assign(candidate, req.body);
     await candidate.save();
 
-    const populated = await Candidate.findById(candidate._id).populate('appliedProfileId skills driveId assignedTechnicalInterviewer assignedPracticalInterviewer assignedHrInterviewer');
-    res.json({ success: true, data: populated });
+    res.json({ success: true, data: candidate });
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.manualAssignCandidate = async (req, res, next) => {
+  try {
+    const { candidateId, roundType, interviewerUserId, targetStage } = req.body;
+    if (!candidateId || !roundType || !interviewerUserId) {
+      return res.status(400).json({ success: false, message: 'Candidate ID, Round Type, and Interviewer User ID are required.' });
+    }
+
+    const User = require('../models/User');
+    const targetUser = await User.findById(interviewerUserId).populate('employeeId');
+    if (!targetUser) return res.status(404).json({ success: false, message: 'Target interviewer user account not found.' });
+
+    const candidate = await Candidate.findById(candidateId);
+    if (!candidate) return res.status(404).json({ success: false, message: 'Candidate not found.' });
+
+    const targetEmpId = targetUser.employeeId?._id || targetUser.employeeId || interviewerUserId;
+
+    if (roundType === 'Technical') {
+      if (candidate.assignedTechnicalInterviewer) {
+        await AutoAssignService.decrementQueueCount(candidate.assignedTechnicalInterviewer);
+      }
+      candidate.assignedTechnicalInterviewer = targetEmpId;
+      candidate.stage = targetStage || 'TECHNICAL_QUEUE';
+      await AutoAssignService.incrementQueueCount(targetEmpId);
+    } else if (roundType === 'Practical') {
+      if (candidate.assignedPracticalInterviewer) {
+        await AutoAssignService.decrementQueueCount(candidate.assignedPracticalInterviewer);
+      }
+      candidate.assignedPracticalInterviewer = targetEmpId;
+      candidate.stage = targetStage || 'PRACTICAL_QUEUE';
+      await AutoAssignService.incrementQueueCount(targetEmpId);
+    } else if (roundType === 'HR') {
+      if (candidate.assignedHrInterviewer) {
+        await AutoAssignService.decrementQueueCount(candidate.assignedHrInterviewer);
+      }
+      candidate.assignedHrInterviewer = targetEmpId;
+      candidate.stage = targetStage || 'HR_QUEUE';
+      await AutoAssignService.incrementQueueCount(targetEmpId);
+    }
+
+    await candidate.save();
+
+    await NotificationService.sendNotification({
+      eventKey: 'CANDIDATE_ASSIGNED',
+      targetUserId: targetUser._id,
+      params: {
+        candidateName: candidate.fullName,
+        candidateCode: candidate.candidateCode,
+        stageName: roundType,
+        interviewerName: targetUser.fullName || targetUser.username
+      }
+    });
+
+    res.json({ success: true, message: `Candidate ${candidate.candidateCode} assigned to ${targetUser.fullName || targetUser.username}`, candidate });
   } catch (err) {
     next(err);
   }
@@ -132,158 +237,14 @@ exports.updateCandidate = async (req, res, next) => {
 exports.deleteCandidate = async (req, res, next) => {
   try {
     const candidate = await Candidate.findById(req.params.id);
-    if (!candidate || candidate.isDeleted) return res.status(404).json({ success: false, message: 'Candidate not found.' });
+    if (!candidate || candidate.isDeleted) {
+      return res.status(404).json({ success: false, message: 'Candidate not found.' });
+    }
 
     candidate.isDeleted = true;
     await candidate.save();
 
-    res.json({ success: true, message: 'Candidate deleted successfully.' });
-  } catch (err) {
-    next(err);
-  }
-};
-
-/**
- * Excel Bulk Import Parser
- * Accepts exact Excel headers:
- * - Email Address
- * - Full Name
- * - Enrollment No.
- * - Contact No.
- * - Profile Applied for
- * - College Name
- * - Branch
- * - Semester
- * - Percentage in 10th
- * - Percentage in 12th
- * - Percentage in Diploma
- * - Current CPI/SPI
- * - Submit Resume
- */
-exports.importCandidates = async (req, res, next) => {
-  try {
-    const { candidatesList } = req.body;
-    if (!candidatesList || !Array.isArray(candidatesList) || candidatesList.length === 0) {
-      return res.status(400).json({ success: false, message: 'Invalid or empty candidate list.' });
-    }
-
-    const profiles = await AppliedProfile.find({ isDeleted: false });
-
-    // Robust Applied Profile resolution helper supporting BSON $oid objects, titles, and codes
-    const findProfileId = (val) => {
-      if (!val) return null;
-      let strVal = '';
-      if (typeof val === 'object') {
-        strVal = String(val.$oid || val._id || val.title || '').trim();
-      } else {
-        strVal = String(val).trim();
-      }
-
-      if (!strVal) return null;
-      const lowerVal = strVal.toLowerCase();
-
-      // 1. Direct MongoDB ObjectId match
-      const byId = profiles.find(p => p._id.toString() === strVal || p._id.toString() === lowerVal);
-      if (byId) return byId._id;
-
-      // 2. Exact Title match (case-insensitive)
-      const byTitle = profiles.find(p => p.title.toLowerCase() === lowerVal);
-      if (byTitle) return byTitle._id;
-
-      // 3. Exact Code match (e.g. PROF_PYTHON)
-      const byCode = profiles.find(p => p.code.toLowerCase() === lowerVal);
-      if (byCode) return byCode._id;
-
-      // 4. Partial / Fuzzy Title match (e.g. "python" in "Python Django Developer")
-      const byPartial = profiles.find(p => p.title.toLowerCase().includes(lowerVal) || lowerVal.includes(p.title.toLowerCase()));
-      if (byPartial) return byPartial._id;
-
-      return null;
-    };
-
-    const imported = [];
-    const count = await Candidate.countDocuments();
-
-    for (let i = 0; i < candidatesList.length; i++) {
-      const item = candidatesList[i];
-      const candidateCode = `CAND-${1000 + count + i + 1}`;
-
-      // Map exact Excel Headers or BSON JSON keys
-      const email = item['Email Address'] || item.email || `cand${Date.now()}_${i}@example.com`;
-      const fullName = item['Full Name'] || item.fullName || 'Candidate';
-      const enrollmentNo = item['Enrollment No.'] || item.enrollmentNo || '';
-      const mobile = String(item['Contact No.'] || item.contactNo || item.mobile || '9876543210');
-      
-      const rawProfileInput = item['appliedProfile'] || item['appliedProfileId'] || item.appliedProfileId || item['Profile Applied for'] || item.appliedProfileName || item.profile || '';
-      const matchedProfileId = findProfileId(rawProfileInput);
-
-      const collegeName = item['College Name'] || item.collegeName || '';
-      const branch = item['Branch'] || item.branch || '';
-      const semester = String(item['Semester'] || item.semester || '');
-      const tenthPercentage = String(item['Percentage in 10th'] || item.tenthPercentage || '');
-      const twelfthPercentage = String(item['Percentage in 12th'] || item.twelfthPercentage || '');
-      const diplomaPercentage = String(item['Percentage in Diploma'] || item.diplomaPercentage || '');
-      const currentCpiSpi = String(item['Current CPI/SPI'] || item.currentCpiSpi || '');
-      const resumeUrl = item['Submit Resume'] || item.resume || item.resumeUrl || '';
-
-      const profileNameStr = typeof rawProfileInput === 'object' 
-        ? (rawProfileInput.$oid || rawProfileInput.title || JSON.stringify(rawProfileInput)) 
-        : String(rawProfileInput);
-
-      const newCand = await Candidate.create({
-        candidateCode,
-        fullName,
-        email: email.toLowerCase().trim(),
-        mobile,
-        enrollmentNo,
-        collegeName,
-        branch,
-        semester,
-        tenthPercentage,
-        twelfthPercentage,
-        diplomaPercentage,
-        currentCpiSpi,
-        appliedProfileId: matchedProfileId || (profiles[0]?._id || null),
-        appliedProfileName: profileNameStr,
-        resumeUrl,
-        stage: 'REGISTERED',
-        createdBy: req.user?._id
-      });
-
-      imported.push(newCand);
-    }
-
-    await ActivityLog.create({
-      userId: req.user?._id,
-      module: 'CANDIDATE',
-      action: 'IMPORT',
-      description: `Bulk imported ${imported.length} campus candidates with academic performance records.`
-    });
-
-    await NotificationService.sendNotification({
-      eventKey: 'CANDIDATE_IMPORTED',
-      targetUserId: null,
-      params: { count: imported.length }
-    });
-
-    res.json({ success: true, message: `Successfully imported ${imported.length} candidates.`, count: imported.length });
-  } catch (err) {
-    next(err);
-  }
-};
-
-/**
- * Manual Assignment Override Endpoint
- */
-exports.manualAssignCandidate = async (req, res, next) => {
-  try {
-    const { candidateId, stageType, interviewerId } = req.body;
-    if (!candidateId || !stageType || !interviewerId) {
-      return res.status(400).json({ success: false, message: 'Candidate ID, stage type, and interviewer ID required.' });
-    }
-
-    const result = await AutoAssignService.assignCandidateToInterviewer(candidateId, stageType, interviewerId);
-    res.json({ success: true, message: `Candidate manually assigned to interviewer.`, data: result });
+    res.json({ success: true, message: 'Candidate record soft-deleted.' });
   } catch (err) {
     next(err);
   }
