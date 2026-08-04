@@ -108,13 +108,16 @@ router.post('/tasks/bulk-update', checkPermission('tasks_write'), taskController
 router.post('/tasks/bulk-delete', checkPermission('tasks_write'), taskController.bulkDeleteTasks);
 router.delete('/tasks/:id', checkPermission('tasks_write'), taskController.deleteTask);
 
-// INTERVIEW WORKSTATIONS
+// INTERVIEW WORKSTATIONS (Supports both /submit and /:candidateId/evaluate)
 router.get('/interviews/technical/:candidateId/questions', checkPermission('interviews_execute'), interviewController.getTechnicalQuestionsForCandidate);
+router.post('/interviews/technical/submit', checkPermission('interviews_execute'), interviewController.submitTechnicalEvaluation);
 router.post('/interviews/technical/:candidateId/evaluate', checkPermission('interviews_execute'), interviewController.submitTechnicalEvaluation);
 
 router.get('/interviews/practical/:candidateId/tasks', checkPermission('interviews_execute'), interviewController.getPracticalTasksForCandidate);
+router.post('/interviews/practical/submit', checkPermission('interviews_execute'), interviewController.submitPracticalEvaluation);
 router.post('/interviews/practical/:candidateId/evaluate', checkPermission('interviews_execute'), interviewController.submitPracticalEvaluation);
 
+router.post('/interviews/hr/submit', checkPermission('interviews_execute'), interviewController.submitHrEvaluation);
 router.post('/interviews/hr/:candidateId/evaluate', checkPermission('interviews_execute'), interviewController.submitHrEvaluation);
 
 // NOTIFICATIONS & TEMPLATES

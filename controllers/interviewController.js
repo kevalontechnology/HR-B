@@ -42,7 +42,7 @@ exports.getTechnicalQuestionsForCandidate = async (req, res, next) => {
 
 exports.submitTechnicalEvaluation = async (req, res, next) => {
   try {
-    const { candidateId } = req.params;
+    const candidateId = req.params.candidateId || req.body.candidateId;
     const { questions, verdict, remarks } = req.body; // verdict: 'PASS' | 'HOLD' | 'FAIL'
 
     const candidate = await Candidate.findById(candidateId);
@@ -136,7 +136,7 @@ exports.getPracticalTasksForCandidate = async (req, res, next) => {
 
 exports.submitPracticalEvaluation = async (req, res, next) => {
   try {
-    const { candidateId } = req.params;
+    const candidateId = req.params.candidateId || req.body.candidateId;
     const { tasks, verdict, remarks } = req.body; // verdict: 'PASS' | 'HOLD' | 'FAIL'
 
     const candidate = await Candidate.findById(candidateId);
@@ -196,7 +196,7 @@ exports.submitPracticalEvaluation = async (req, res, next) => {
  */
 exports.submitHrEvaluation = async (req, res, next) => {
   try {
-    const { candidateId } = req.params;
+    const candidateId = req.params.candidateId || req.body.candidateId;
     const { communicationScore, behaviorScore, confidenceScore, verdict, remarks } = req.body;
 
     const candidate = await Candidate.findById(candidateId);
