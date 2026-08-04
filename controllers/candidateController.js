@@ -53,10 +53,34 @@ exports.getPublicCandidateStatus = async (req, res, next) => {
         { enrollmentNo: { $regex: `^${q}$`, $options: 'i' } },
         { email: { $regex: `^${q}$`, $options: 'i' } }
       ]
-    }).populate('appliedProfileId');
+    }).populate('appliedProfileId assignedTechnicalInterviewer assignedPracticalInterviewer assignedHrInterviewer');
 
     if (!candidate) {
       return res.status(404).json({ success: false, message: 'No candidate record found matching the details provided.' });
+    }
+
+    let interviewerName = 'Pending Auto-Assignment';
+    if (candidate.stage.includes('TECHNICAL') || candidate.stage === 'RECEPTION_WAITING' || candidate.stage === 'REGISTERED') {
+      if (candidate.assignedTechnicalInterviewer) {
+        interviewerName = candidate.assignedTechnicalInterviewer.fullName || candidate.assignedTechnicalInterviewer.username || 'Technical Panel';
+      }
+    } else if (candidate.stage.includes('PRACTICAL') || candidate.stage === 'TECHNICAL_COMPLETED') {
+      if (candidate.assignedPracticalInterviewer) {
+        interviewerName = candidate.assignedPracticalInterviewer.fullName || candidate.assignedPracticalInterviewer.username || 'Practical Task Evaluator';
+      } else if (candidate.assignedTechnicalInterviewer) {
+        interviewerName = candidate.assignedTechnicalInterviewer.fullName;
+      }
+    } else if (candidate.stage.includes('HR') || candidate.stage === 'PRACTICAL_COMPLETED') {
+      if (candidate.assignedHrInterviewer) {
+        interviewerName = candidate.assignedHrInterviewer.fullName || candidate.assignedHrInterviewer.username || 'HR Panel';
+      }
+    }
+
+    if (interviewerName === 'Pending Auto-Assignment') {
+      const anyEmp = candidate.assignedTechnicalInterviewer || candidate.assignedPracticalInterviewer || candidate.assignedHrInterviewer;
+      if (anyEmp) {
+        interviewerName = anyEmp.fullName || anyEmp.username;
+      }
     }
 
     let practicalTasks = [];
@@ -75,7 +99,8 @@ exports.getPublicCandidateStatus = async (req, res, next) => {
         collegeName: candidate.collegeName || 'N/A',
         branch: candidate.branch || 'N/A',
         checkInTime: candidate.checkInTime || null,
-        finalResult: candidate.finalResult || 'PENDING'
+        finalResult: candidate.finalResult || 'PENDING',
+        assignedInterviewerName: interviewerName
       },
       practicalTasks: practicalTasks.map(t => ({
         taskTitle: t.taskTitle || t.title,
