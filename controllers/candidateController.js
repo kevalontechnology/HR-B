@@ -168,10 +168,30 @@ exports.importCandidates = async (req, res, next) => {
     }
 
     const profiles = await AppliedProfile.find({ isDeleted: false });
-    const profileTitleMap = {};
-    profiles.forEach(p => {
-      profileTitleMap[p.title.toLowerCase()] = p._id;
-    });
+
+    // Robust Applied Profile resolution helper
+    const findProfileId = (val) => {
+      if (!val) return null;
+      const strVal = String(val).trim().toLowerCase();
+
+      // 1. Direct MongoDB ObjectId match
+      const byId = profiles.find(p => p._id.toString() === val || p._id.toString() === strVal);
+      if (byId) return byId._id;
+
+      // 2. Exact Title match (case-insensitive)
+      const byTitle = profiles.find(p => p.title.toLowerCase() === strVal);
+      if (byTitle) return byTitle._id;
+
+      // 3. Exact Code match (e.g. PROF_PYTHON)
+      const byCode = profiles.find(p => p.code.toLowerCase() === strVal);
+      if (byCode) return byCode._id;
+
+      // 4. Partial / Fuzzy Title match (e.g. "python" in "Python Django Developer")
+      const byPartial = profiles.find(p => p.title.toLowerCase().includes(strVal) || strVal.includes(p.title.toLowerCase()));
+      if (byPartial) return byPartial._id;
+
+      return null;
+    };
 
     const imported = [];
     const count = await Candidate.countDocuments();
@@ -185,7 +205,10 @@ exports.importCandidates = async (req, res, next) => {
       const fullName = item['Full Name'] || item.fullName || 'Candidate';
       const enrollmentNo = item['Enrollment No.'] || item.enrollmentNo || '';
       const mobile = String(item['Contact No.'] || item.mobile || item.contactNo || '9876543210');
-      const profileAppliedName = item['Profile Applied for'] || item.appliedProfileName || item.profile || '';
+      
+      const rawProfileInput = item['appliedProfileId'] || item.appliedProfileId || item['Profile Applied for'] || item.appliedProfileName || item.profile || '';
+      const matchedProfileId = findProfileId(rawProfileInput);
+
       const collegeName = item['College Name'] || item.collegeName || '';
       const branch = item['Branch'] || item.branch || '';
       const semester = String(item['Semester'] || item.semester || '');
@@ -194,15 +217,6 @@ exports.importCandidates = async (req, res, next) => {
       const diplomaPercentage = String(item['Percentage in Diploma'] || item.diplomaPercentage || '');
       const currentCpiSpi = String(item['Current CPI/SPI'] || item.currentCpiSpi || '');
       const resumeUrl = item['Submit Resume'] || item.resumeUrl || '';
-
-      // Match profile ID if available
-      let matchedProfileId = item.appliedProfileId || null;
-      if (!matchedProfileId && profileAppliedName) {
-        matchedProfileId = profileTitleMap[profileAppliedName.toLowerCase()] || null;
-      }
-      if (!matchedProfileId && profiles.length > 0) {
-        matchedProfileId = profiles[0]._id; // Default fallback profile
-      }
 
       const newCand = await Candidate.create({
         candidateCode,
@@ -217,8 +231,8 @@ exports.importCandidates = async (req, res, next) => {
         twelfthPercentage,
         diplomaPercentage,
         currentCpiSpi,
-        appliedProfileId: matchedProfileId,
-        appliedProfileName: profileAppliedName,
+        appliedProfileId: matchedProfileId || (profiles[0]?._id || null),
+        appliedProfileName: String(rawProfileInput),
         resumeUrl,
         stage: 'REGISTERED',
         createdBy: req.user?._id
