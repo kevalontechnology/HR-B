@@ -5,6 +5,23 @@ const NotificationService = require('../services/NotificationService');
 const AutoAssignService = require('../services/AutoAssignService');
 const InterviewService = require('../services/InterviewService');
 
+const generateUniqueCandidateCode = async () => {
+  const candidates = await Candidate.find({ candidateCode: /^CAND-\d+$/i }, { candidateCode: 1 }).lean();
+  let maxCodeNumber = 1000;
+
+  for (const candidate of candidates) {
+    const match = candidate?.candidateCode?.match(/^CAND-(\d+)$/i);
+    if (!match) continue;
+
+    const codeNumber = Number(match[1]);
+    if (!Number.isNaN(codeNumber) && codeNumber > maxCodeNumber) {
+      maxCodeNumber = codeNumber;
+    }
+  }
+
+  return `CAND-${maxCodeNumber + 1}`;
+};
+
 exports.getAllCandidates = async (req, res, next) => {
   try {
     const { search, stage, profileId, driveId, result } = req.query;
@@ -164,32 +181,41 @@ exports.createCandidate = async (req, res, next) => {
       return res.status(400).json({ success: false, message: 'Full Name and Email or Contact No are required.' });
     }
 
-    const count = await Candidate.countDocuments();
-    const candidateCode = `CAND-${1000 + count + 1}`;
+    for (let attempt = 0; attempt < 10; attempt++) {
+      const candidateCode = await generateUniqueCandidateCode();
 
-    const candidate = await Candidate.create({
-      candidateCode,
-      fullName,
-      email: (email || `${fullName.toLowerCase().replace(/\s+/g, '')}@campus.com`).toLowerCase(),
-      mobile: mobile || '0000000000',
-      enrollmentNo: enrollmentNo || '',
-      collegeName: collegeName || '',
-      branch: branch || '',
-      semester: semester || '',
-      tenthPercentage: tenthPercentage || '',
-      twelfthPercentage: twelfthPercentage || '',
-      diplomaPercentage: diplomaPercentage || '',
-      currentCpiSpi: currentCpiSpi || '',
-      appliedProfileId: appliedProfileId || null,
-      skills: skills || [],
-      experienceYears: experienceYears || 0,
-      driveId: driveId || null,
-      resumeUrl: resumeUrl || '',
-      stage: 'REGISTERED',
-      createdBy: req.user?._id
-    });
+      try {
+        const candidate = await Candidate.create({
+          candidateCode,
+          fullName,
+          email: (email || `${fullName.toLowerCase().replace(/\s+/g, '')}@campus.com`).toLowerCase(),
+          mobile: mobile || '0000000000',
+          enrollmentNo: enrollmentNo || '',
+          collegeName: collegeName || '',
+          branch: branch || '',
+          semester: semester || '',
+          tenthPercentage: tenthPercentage || '',
+          twelfthPercentage: twelfthPercentage || '',
+          diplomaPercentage: diplomaPercentage || '',
+          currentCpiSpi: currentCpiSpi || '',
+          appliedProfileId: appliedProfileId || null,
+          skills: skills || [],
+          experienceYears: experienceYears || 0,
+          driveId: driveId || null,
+          resumeUrl: resumeUrl || '',
+          stage: 'REGISTERED',
+          createdBy: req.user?._id
+        });
 
-    res.status(201).json({ success: true, data: candidate });
+        return res.status(201).json({ success: true, data: candidate });
+      } catch (err) {
+        if (err.code !== 11000 || !err.keyPattern || !err.keyPattern.candidateCode) {
+          throw err;
+        }
+      }
+    }
+
+    return res.status(500).json({ success: false, message: 'Unable to generate a unique candidate code. Please try again.' });
   } catch (err) {
     next(err);
   }
@@ -225,35 +251,44 @@ exports.importCandidates = async (req, res, next) => {
     };
 
     let importedCount = 0;
-    const count = await Candidate.countDocuments();
 
     for (let i = 0; i < candidates.length; i++) {
       const c = candidates[i];
       if (!c.fullName || (!c.email && !c.mobile && !c.contactNo)) continue;
 
-      const candidateCode = `CAND-${1000 + count + i + 1}`;
       const profileId = findProfileId(c.appliedProfile || c.appliedProfileId || c.profile);
 
-      await Candidate.create({
-        candidateCode,
-        fullName: c.fullName,
-        email: (c.email || `${c.fullName.toLowerCase().replace(/\s+/g, '')}@campus.com`).toLowerCase(),
-        mobile: c.contactNo || c.mobile || '0000000000',
-        enrollmentNo: c.enrollmentNo || '',
-        collegeName: c.collegeName || '',
-        branch: c.branch || '',
-        semester: Number(c.semester) || 1,
-        tenthPercentage: String(c.tenthPercentage || ''),
-        twelfthPercentage: String(c.twelfthPercentage || ''),
-        diplomaPercentage: String(c.diplomaPercentage || ''),
-        currentCpiSpi: String(c.currentCpiSpi || ''),
-        appliedProfileId: profileId,
-        resumeUrl: c.resume || c.resumeUrl || '',
-        stage: 'REGISTERED',
-        createdBy: req.user?._id
-      });
+      for (let attempt = 0; attempt < 10; attempt++) {
+        const candidateCode = await generateUniqueCandidateCode();
 
-      importedCount++;
+        try {
+          await Candidate.create({
+            candidateCode,
+            fullName: c.fullName,
+            email: (c.email || `${c.fullName.toLowerCase().replace(/\s+/g, '')}@campus.com`).toLowerCase(),
+            mobile: c.contactNo || c.mobile || '0000000000',
+            enrollmentNo: c.enrollmentNo || '',
+            collegeName: c.collegeName || '',
+            branch: c.branch || '',
+            semester: Number(c.semester) || 1,
+            tenthPercentage: String(c.tenthPercentage || ''),
+            twelfthPercentage: String(c.twelfthPercentage || ''),
+            diplomaPercentage: String(c.diplomaPercentage || ''),
+            currentCpiSpi: String(c.currentCpiSpi || ''),
+            appliedProfileId: profileId,
+            resumeUrl: c.resume || c.resumeUrl || '',
+            stage: 'REGISTERED',
+            createdBy: req.user?._id
+          });
+
+          importedCount++;
+          break;
+        } catch (err) {
+          if (err.code !== 11000 || !err.keyPattern || !err.keyPattern.candidateCode) {
+            throw err;
+          }
+        }
+      }
     }
 
     res.status(201).json({ success: true, count: importedCount, message: `Successfully imported ${importedCount} candidates.` });
